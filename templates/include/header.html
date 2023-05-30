@@ -1,0 +1,260 @@
+{% load static %}
+<div class="header-area header-white header-sticky d-none d-lg-block">
+    <div class="container position-relative">
+        <div class="row align-items-center">
+            <div class="col-lg-3">
+                <!-- Header Logo Start -->
+                <div class="header-logo">
+                    <a href="{% url 'index' %}"><img src="{{ setting.logo.url }}" width="30%" alt="Logo" /></a>
+                </div>
+                <!-- Header Logo End -->
+            </div>
+            <div class="col-lg-6">
+                <div class="header-menu">
+                    <ul class="nav-menu">
+                        <li>
+                            <a href="#">Домой</a>
+                            <ul class="sub-menu">
+                                <li><a href="index.html">Home 01</a></li>
+                                <li><a href="index-2.html">Home 02</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="about.html">О нас</a></li>
+                        <li>
+                            <a href="#">Shop</a>
+                            <ul class="mega-sub-menu">
+                                <li>
+                                    <a href="#" class="menu-title">Shop Grid</a>
+
+                                    <ul class="menu-item">
+                                        <li>
+                                            <a href="shop-grid-3-column.html">Shop Grid 3 Column</a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-grid-4-column.html">Shop Grid 4 Column</a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-grid-left-sidebar.html">Shop Grid Left Sidebar</a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-grid-right-sidebar.html">Shop Grid Right Sidebar</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="menu-title">Shop List</a>
+
+                                    <ul class="menu-item">
+                                        <li><a href="shop-list.html">Shop List</a></li>
+                                        <li>
+                                            <a href="shop-list-left-sidebar.html">Shop List Left Sidebar</a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-list-right-sidebar.html">Shop List Right Sidebar</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="menu-title">Shop Single</a>
+
+                                    <ul class="menu-item">
+                                        <li><a href="product-details.html">Product Details</a></li>
+                                        <li>
+                                            <a href="product-details-affiliate.html">Product Details Affiliate</a>
+                                        </li>
+                                        <li>
+                                            <a href="product-details-gallery.html">Product Details Gallery</a>
+                                        </li>
+                                        <li>
+                                            <a href="product-details-group.html">Product Details Group</a>
+                                        </li>
+                                        <li>
+                                            <a href="product-details-sticky.html">Product Details Sticky</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#" class="menu-title">Page</a>
+
+                                    <ul class="menu-item">
+                                        <li><a href="about.html">About Us</a></li>
+                                        <li><a href="cart.html">Cart</a></li>
+                                        <li><a href="wishlist.html">Wishlist</a></li>
+                                        <li><a href="checkout.html">Checkout</a></li>
+                                        <li><a href="my-account.html">My Account</a></li>
+                                    </ul>
+                                </li>
+
+                                <li class="manu-banner">
+                                    <a href="#"><img src="{% static 'assets/images/banner-menu-01.jpg' %}" width="465" height="170" alt="Banner" /></a>
+                                </li>
+                                <li class="manu-banner">
+                                    <a href="#"><img src="{% static 'assets/images/banner-menu-02.jpg' %}" width="465" height="170" alt="Banner" /></a>
+                                </li>
+                            </ul>
+                        </li>
+                       
+                        
+                        <li><a href="contact.html">Контакты</a></li>
+                        <li><a href="contact.html">Авторизация</a></li>
+                        <li><a href="{% url 'register' %}">Регистрация</a></li>
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <!-- Header Meta Start -->
+                <div class="header-meta">
+                    <div class="dropdown">
+                        <a class="action" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="pe-7s-search"></i>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-search">
+                            <!-- Header Search Start -->
+                            <div class="header-search">
+                                <form action="#">
+                                    <input type="text" placeholder="Enter your search key ... " />
+                                    <button>
+                                        <i class="pe-7s-search"></i>
+                                    </button>
+                                </form>
+                            </div>
+                            <!-- Header Search End -->
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <a class="action" href="#" role="button" data-bs-toggle="dropdown"><i class="pe-7s-user"></i></a>
+
+                        <ul class="dropdown-menu dropdown-profile">
+                            <li><a href="my-account.html">My Account</a></li>
+                            <li><a href="checkout.html">Checkout</a></li>
+                            <li><a href="login.html">Sign In</a></li>
+                        </ul>
+                    </div>
+                    <a class="action" href="wishlist.html"><i class="pe-7s-like"></i></a>
+
+                    <div class="dropdown">
+                        <a class="action" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="pe-7s-shopbag"></i>
+                            <span class="number">33</span>
+                        </a>
+
+                        <div class="dropdown-menu dropdown-cart">
+                            <div class="cart-content" id="cart-content">
+                                <ul>
+                                    <li>
+                                        <!-- Single Cart Item Start -->
+                                        <div class="single-cart-item">
+                                            <div class="cart-thumb">
+                                                <img src="{% static 'assets/images/cart/cart-1.jpg' %}" width="98" height="98" alt="Cart" />
+                                                <span class="product-quantity"
+                                                >1x</span>
+                                            </div>
+                                            <div class="cart-item-content">
+                                                <h6 class="product-name">
+                                                    <a href="#">High quality vase
+                                                        bottle</a>
+                                                </h6>
+                                                <span class="product-price"
+                                                >$19.12</span>
+                                                <div class="attributes-content">
+                                                    <span
+                                                    ><strong>Color:</strong>
+                                                    White
+                                                </span>
+                                                </div>
+                                                <a class="cart-remove" href="#"><i class="las la-times"></i></a>
+                                            </div>
+                                        </div>
+                                        <!-- Single Cart Item End -->
+                                    </li>
+                                    <li>
+                                        <!-- Single Cart Item Start -->
+                                        <div class="single-cart-item">
+                                            <div class="cart-thumb">
+                                                <img src="{% static 'assets/images/cart/cart-2.jpg' %}" width="98" height="98" alt="Cart" />
+                                                <span class="product-quantity"
+                                                >1x</span>
+                                            </div>
+                                            <div class="cart-item-content">
+                                                <h6 class="product-name">
+                                                    <a href="#">Living & Bedroom
+                                                        Chair</a>
+                                                </h6>
+                                                <span class="product-price"
+                                                >$19.12</span>
+                                                <div class="attributes-content">
+                                                    <span
+                                                    ><strong>Color:</strong>
+                                                    White
+                                                </span>
+                                                </div>
+                                                <a class="cart-remove" href="#"><i class="las la-times"></i></a>
+                                            </div>
+                                        </div>
+                                        <!-- Single Cart Item End -->
+                                    </li>
+                                    <li>
+                                        <!-- Single Cart Item Start -->
+                                        <div class="single-cart-item">
+                                            <div class="cart-thumb">
+                                                <img src="{% static 'assets/images/cart/cart-3.jpg' %}" width="98" height="98" alt="Cart" />
+                                                <span class="product-quantity"
+                                                >1x</span>
+                                            </div>
+                                            <div class="cart-item-content">
+                                                <h6 class="product-name">
+                                                    <a href="#">Herman Arm Grey
+                                                        Chair</a>
+                                                </h6>
+                                                <span class="product-price"
+                                                >$19.12</span>
+                                                <div class="attributes-content">
+                                                    <span
+                                                    ><strong>Color:</strong>
+                                                    White
+                                                </span>
+                                                </div>
+                                                <a class="cart-remove" href="#"><i class="las la-times"></i></a>
+                                            </div>
+                                        </div>
+                                        <!-- Single Cart Item End -->
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="cart-price">
+                                <div class="cart-subtotals">
+                                    <div class="price-inline">
+                                        <span class="label">Subtotal</span>
+                                        <span class="value">$42.70</span>
+                                    </div>
+                                    <div class="price-inline">
+                                        <span class="label">Shipping</span>
+                                        <span class="value">$7.00</span>
+                                    </div>
+                                    <div class="price-inline">
+                                        <span class="label">Taxes</span>
+                                        <span class="value">$0.00</span>
+                                    </div>
+                                </div>
+                                <div class="cart-total">
+                                    <div class="price-inline">
+                                        <span class="label">Total</span>
+                                        <span class="value">$49.70</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="checkout-btn">
+                                <a href="checkout.html" class="btn btn-dark btn-hover-primary d-block">Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Header Meta End -->
+            </div>
+        </div>
+    </div>
+</div>
