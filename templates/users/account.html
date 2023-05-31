@@ -270,31 +270,31 @@
                         <ul class="nav account-menu-list flex-column">
                             <li>
                                 <a class="active" data-bs-toggle="pill" href="#pills-dashboard"><i class="fa fa-tachometer"></i>
-                                    Dashboard</a>
+                                    Аккаунт</a>
                             </li>
                             <li>
                                 <a data-bs-toggle="pill" href="#pills-order"><i class="fa fa-shopping-cart"></i>
-                                    Order</a>
+                                    Заказы</a>
                             </li>
                             <li>
                                 <a data-bs-toggle="pill" href="#pills-download"><i class="fa fa-cloud-download"></i>
-                                    Download</a>
+                                    Скачать</a>
                             </li>
                             <li>
                                 <a data-bs-toggle="pill" href="#pills-payment"><i class="fa fa-credit-card"></i>
-                                    Payment Method</a>
+                                    Способ оплаты</a>
                             </li>
                             <li>
                                 <a data-bs-toggle="pill" href="#pills-address"><i class="fa fa-map-marker"></i>
-                                    Address</a>
+                                    Адрес</a>
                             </li>
                             <li>
-                                <a data-bs-toggle="pill" href="#pills-account"><i class="fa fa-user"></i> Account
-                                    Details</a>
+                                <a data-bs-toggle="pill" href="#pills-account"><i class="fa fa-user"></i>
+                                    Изменить</a>
                             </li>
                             <li>
-                                <a href="login.html"><i class="fa fa-sign-out"></i>
-                                    Logout</a>
+                                <a href="{% url 'logout' %}"><i class="fa fa-sign-out"></i>
+                                    Выйти</a>
                             </li>
                         </ul>
                     </div>
@@ -305,25 +305,132 @@
                     <div class="tab-content my-account-tab">
                         <div class="tab-pane fade show active" id="pills-dashboard">
                             <div class="my-account-dashboard account-wrapper">
-                                <h4 class="account-title">Dashboard</h4>
-                                <div class="welcome-dashboard">
-                                    <p>
-                                        Hello,
-                                        <strong>Alex Tuntuni</strong> (If
-                                        Not <strong>Tuntuni !</strong>
-                                        <a href="login.html">Logout</a> )
-                                    </p>
+                                <h4 class="account-title">Аккаунт {{ user.username }}</h4>
+                                <a href="">Вот ваша личная информация:</a>
+                            </div>
+                            <div class="account-details">
+                                <div class="row">
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        <div class="col-md-6">
+                                            <div class="single-form">
+                                                <h5 class="title">
+                                                    Имя пользователя
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="single-form">
+                                                <input type="text" value="{{ user.username }}" name="username" placeholder="Имя пользователя" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="single-form">
+                                                <h5 class="title">
+                                                    Почта
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="single-form">
+                                                <input type="text" value="{{ user.email }}" name="email" placeholder="Почта" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form">
+                                                <h5 class="title">
+                                                    Имя
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="single-form">
+                                                <input type="text" value="{{ user.first_name }}" name="first_name" placeholder="Имя" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form">
+                                                <h5 class="title">
+                                                    Фамилия
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="single-form">
+                                                <input type="text" value="{{ user.last_name }}" name="last_name" placeholder="Фамилия" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form">
+                                                <h5 class="title">
+                                                    Телефонный номер
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="single-form">
+                                                <input type="text" value="{{ user.phone }}" name="phone" placeholder="Телефонный номер" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form">
+                                                <h5 class="title">
+                                                    Адрес
+                                                </h5>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="single-form">
+                                                <input type="text" value="{{ user.address }}" name="address" placeholder="Адрес" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="single-form">
+                                                <button class="btn btn-primary btn-hover-dark" type="submit" name="update">
+                                                    Обновить
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div class="col-md-12">
+                                        <div class="single-form">
+                                            <h1>Ваш промокод</h1>
+                                            <h1>{{ user.promo_code }}</h1>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="single-form">
+                                            <h5 class="title">
+                                                Поменять пароль
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="single-form">
+                                            <input type="password" placeholder="Current Password" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form">
+                                            <input type="password" placeholder="New Password" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form">
+                                            <input type="password" placeholder="Confirm Password" />
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="single-form">
+                                            <button class="btn btn-primary btn-hover-dark">
+                                                Поменять пароль
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div>
-                                <p>
-                                    From your account dashboard. you can
-                                    easily check & view your recent orders,
-                                    manage your shipping and billing
-                                    addresses and edit your password and
-                                    account details.
-                                </p>
                             </div>
                         </div>
-
+                        
                         <div class="tab-pane fade" id="pills-order">
                             <div class="my-account-order account-wrapper">
                                 <h4 class="account-title">Orders</h4>

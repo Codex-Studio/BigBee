@@ -33,4 +33,21 @@ def user_login(request):
 
 def user_account(request, id):
     setting = Setting.objects.latest('id')
+    if request.method == "POST":
+        if 'update' in request.POST:
+            username = request.POST.get('username')
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            email = request.POST.get('email')
+            phone = request.POST.get('phone')
+            address = request.POST.get('address')
+            user = User.objects.get(id = id)
+            user.username = username 
+            user.first_name = first_name
+            user.last_name = last_name
+            user.email = email
+            user.phone = phone 
+            user.address = address 
+            user.save()
+            return redirect('user_account', user.id)
     return render(request, 'users/account.html', locals())
