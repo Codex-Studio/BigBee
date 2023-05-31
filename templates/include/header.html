@@ -96,9 +96,14 @@
                        
                         
                         <li><a href="contact.html">Контакты</a></li>
-                        <li><a href="contact.html">Авторизация</a></li>
+                        {% if request.user.is_authenticated %}
+                        <li><a href="{% url 'user_account' request.user.id %}">Личный кабинет</a></li>
+                        <li><a href="{% url 'user_account' request.user.id %}">{{ request.user.username }}</a></li>
+                        <li><a href="{% url 'logout' %}">Выйти</a></li>
+                        {% else %}
+                        <li><a href="{% url 'user_login' %}">Авторизация</a></li>
                         <li><a href="{% url 'register' %}">Регистрация</a></li>
-
+                        {% endif %}
                     </ul>
                 </div>
             </div>
