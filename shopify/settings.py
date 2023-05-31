@@ -44,7 +44,8 @@ INSTALLED_APPS = [
     #apps
     'apps.settings',
     'apps.users',
-    'apps.products'
+    'apps.categories',
+    'apps.products',
 ]
 
 MIDDLEWARE = [
