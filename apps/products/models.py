@@ -25,6 +25,11 @@ class Product(models.Model):
     description = models.TextField(
         verbose_name="Описание"
     )
+    image = models.ImageField(
+        upload_to='product_images/',
+        verbose_name="Фотография",
+        blank=True, null=True
+    )
     price = models.PositiveIntegerField(
         verbose_name="Цена"
     )

@@ -1,6 +1,8 @@
 from django.shortcuts import render
 
 from apps.settings.models import Setting
+from apps.categories.models import Category
+from apps.products.models import Product
 
 # Create your views here.
 def index(request):
