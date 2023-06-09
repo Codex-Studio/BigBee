@@ -7,4 +7,7 @@ from apps.products.models import Product
 # Create your views here.
 def index(request):
     setting = Setting.objects.latest('id')
+    categories = Category.objects.all()
+    products = Product.objects.all()
+    random_product = Product.objects.all().order_by('?')[:3]
     return render(request, 'index-2.html', locals())
