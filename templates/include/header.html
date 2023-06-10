@@ -129,16 +129,18 @@
                         </div>
                     </div>
 
+                    {% if request.user.is_authenticated %}
                     <div class="dropdown">
                         <a class="action" href="#" role="button" data-bs-toggle="dropdown"><i class="pe-7s-user"></i></a>
-
                         <ul class="dropdown-menu dropdown-profile">
                             <li><a href="{% url 'user_account' request.user.id %}">Мой аккаунт</a></li>
                             <li><a href="checkout.html">Заказы</a></li>
                             <li><a href="login.html">Выйти</a></li>
                         </ul>
                     </div>
+                    {% endif %}
                     <a class="action" href="wishlist.html"><i class="pe-7s-like"></i></a>
+                    <a class="action" href="wishlist.html"><i class="pe-7s-user"></i></a>
 
                     <div class="dropdown">
                         <a class="action" href="#" role="button" data-bs-toggle="dropdown">
