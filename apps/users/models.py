@@ -44,3 +44,33 @@ class User(AbstractUser):
     class Meta:
         verbose_name = "Пользователь"
         verbose_name_plural = "Пользователи"
+
+class Partnership(models.Model):
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE,
+        related_name='users_partnership',
+        verbose_name="Пользователь",
+        blank=True, null=True
+    )
+    name = models.CharField(
+        max_length=255,
+        verbose_name="Имя"
+    )
+    email = models.EmailField(
+        verbose_name="Почта"
+    )
+    phone = models.CharField(
+        max_length=255,
+        verbose_name="Телефонный номер"
+    )
+    created = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Время заявки"
+    )
+
+    def __str__(self):
+        return self.name 
+    
+    class Meta:
+        verbose_name = "Заявка на партнерство"
+        verbose_name_plural = "Заявка на партнерство"

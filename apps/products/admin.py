@@ -9,8 +9,8 @@ class ImageTabularInline(admin.TabularInline):
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('user', 'title', 'category')
-    search_fields = ('user__username', 'title')
+    list_display = ('user', 'title', 'category', 'created')
+    search_fields = ('user__username', 'title', 'created')
     list_per_page = 20
     inlines = [ImageTabularInline]
 

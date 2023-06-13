@@ -2,7 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 
 from apps.settings.models import Setting
-from apps.users.models import User
+from apps.users.models import User, Partnership
+from apps.products.models import Product
 
 # Create your views here.
 def register(request):
@@ -33,6 +34,7 @@ def user_login(request):
 
 def user_account(request, id):
     setting = Setting.objects.latest('id')
+    user_products = Product.objects.filter(user=request.user)
     if request.method == "POST":
         if 'update' in request.POST:
             username = request.POST.get('username')
@@ -50,4 +52,20 @@ def user_account(request, id):
             user.address = address 
             user.save()
             return redirect('user_account', user.id)
+        if 'create' in request.POST:
+            title = request.POST.get('title')
+            description = request.POST.get('description')
+            price = request.POST.get('price')
+            product = Product.objects.create(user=request.user, title=title, description=description, price=int(price))
+            return redirect('index')
+        if 'partnership' in request.POST:
+            name = request.POST.get('name')
+            email = request.POST.get('email')
+            phone = request.POST.get('phone')
+            partnership = Partnership.objects.create(user=request.user, name=name, email=email, phone=phone)
+            return redirect('partnership')
     return render(request, 'users/account.html', locals())
+
+def partnership(request):
+    setting = Setting.objects.latest('id')
+    return render(request, 'redirect/partnership.html', locals())

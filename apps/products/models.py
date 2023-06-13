@@ -33,6 +33,10 @@ class Product(models.Model):
     price = models.PositiveIntegerField(
         verbose_name="Цена"
     )
+    created = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name="Дата создания"
+    )
 
     def __str__(self):
         return self.title 
@@ -58,3 +62,6 @@ class ProductImage(models.Model):
     class Meta:
         verbose_name = "Фотография продукта"
         verbose_name_plural = "Фотографии продуктов"
+
+# class BuyProduct(models.Model):
+    
