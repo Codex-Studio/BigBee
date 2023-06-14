@@ -6,7 +6,8 @@ import random, string
 class User(AbstractUser):
     USER_ROLE_CHOICE = (
         ('Client', 'Client'),
-        ('Partner', 'Partner')
+        ('Partner', 'Partner'),
+        ('Manager', 'Manager')
     )
     user_role = models.CharField(
         max_length=100,
@@ -62,6 +63,10 @@ class Partnership(models.Model):
     phone = models.CharField(
         max_length=255,
         verbose_name="Телефонный номер"
+    )
+    status = models.BooleanField(
+        verbose_name="Статус",
+        default=False
     )
     created = models.DateTimeField(
         auto_now_add=True,

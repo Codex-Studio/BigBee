@@ -272,7 +272,7 @@
                                 <a class="active" data-bs-toggle="pill" href="#pills-dashboard"><i class="fa fa-tachometer"></i>
                                     Аккаунт</a>
                             </li>
-                            {% if request.user.user_role == 'Partner' %}
+                            {% if user.user_role == 'Partner' %}
                             <li>
                                 <a data-bs-toggle="pill" href="#pills-account"><i class="fa fa-edit"></i>
                                     Создать</a>
@@ -286,10 +286,18 @@
                                     Заказы</a>
                             </li>
                             {% endif %}
+                            {% if user.user_role != 'Partner' and user.user_role != 'Manager' %}
                             <li>
                                 <a data-bs-toggle="pill" href="#pills-payment"><i class="fa fa-credit-card"></i>
                                     Стать партнером</a>
                             </li>
+                            {% endif %}
+                            {% if user.user_role == 'Manager' %}
+                            <li>
+                                <a data-bs-toggle="pill" href="#pills-partnership"><i class="fa fa-credit-card"></i>
+                                    Заявки</a>
+                            </li>
+                            {% endif %}
                             <li>
                                 <a data-bs-toggle="pill" href="#pills-address"><i class="fa fa-map-marker"></i>
                                     Адрес</a>
@@ -434,6 +442,43 @@
                             </div>
                         </div>
                         
+                        <div class="tab-pane fade" id="pills-partnership">
+                            <div class="my-account-order account-wrapper">
+                                <h4 class="account-title">Заявки на партнерство</h4>
+                                <div class="account-table text-center table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="no">ID</th>
+                                                <th class="name">Имя</th>
+                                                <th class="date">Номер</th>
+                                                <th class="status">
+                                                    Почта
+                                                </th>
+                                                <th class="action">
+                                                    Действие
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for partner in partners %}
+                                            <tr>
+                                                <td>{{ partner.id }}</td>
+                                                <td>{{ partner.name }}</td>
+                                                <td>{{ partner.phone }}</td>
+                                                <td>{{ partner.email }}</td>
+                                                <td>
+                                                    <a href="#">Принять</a>
+                                                    <a href="#">Удалить</a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="tab-pane fade" id="pills-order">
                             <div class="my-account-order account-wrapper">
                                 <h4 class="account-title">Мои продукты</h4>
@@ -622,7 +667,7 @@
 
                                 <div class="account-details">
                                     <div class="row">
-                                        <form method="post">
+                                        <form method="post" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <div class="col-md-12">
                                                 <div class="single-form">
@@ -637,6 +682,11 @@
                                             <div class="col-md-12">
                                                 <div class="single-form">
                                                     <input type="text" name="price" placeholder="Цена" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="single-form">
+                                                    <input type="file" name="image">
                                                 </div>
                                             </div>
                                             <div class="col-md-6">

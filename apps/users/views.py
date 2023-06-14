@@ -33,8 +33,10 @@ def user_login(request):
     return render(request, 'users/login.html', locals())
 
 def user_account(request, id):
+    user = User.objects.get(id=id)
     setting = Setting.objects.latest('id')
     user_products = Product.objects.filter(user=request.user)
+    partners = Partnership.objects.filter(status=False)
     if request.method == "POST":
         if 'update' in request.POST:
             username = request.POST.get('username')
@@ -56,8 +58,9 @@ def user_account(request, id):
             title = request.POST.get('title')
             description = request.POST.get('description')
             price = request.POST.get('price')
-            product = Product.objects.create(user=request.user, title=title, description=description, price=int(price))
-            return redirect('index')
+            image = request.FILES.get('image')
+            product = Product.objects.create(user=request.user, title=title, description=description, price=int(price), image=image)
+            return redirect('product_detail', product.id)
         if 'partnership' in request.POST:
             name = request.POST.get('name')
             email = request.POST.get('email')
@@ -68,4 +71,5 @@ def user_account(request, id):
 
 def partnership(request):
     setting = Setting.objects.latest('id')
+    partners = Partnership.objects.filter(status=False)
     return render(request, 'redirect/partnership.html', locals())
