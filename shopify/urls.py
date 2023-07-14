@@ -26,6 +26,7 @@ urlpatterns = [
     path('users/', include('apps.users.urls')),
     path('products/', include('apps.products.urls')),
     path('categories/', include('apps.categories.urls')),
+    path('store/', include('apps.shops.urls')),
     path('logout/', LogoutView.as_view(next_page = 'index'), name = "logout"),
 ]
 

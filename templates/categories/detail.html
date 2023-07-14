@@ -316,8 +316,11 @@
                                                 <a href="{% url 'product_detail' product.id %}">{{ product.title }}</a>
                                             </h4>
                                             <div class="price">
-                                                <span class="sale-price"
-                                                        >{{ product.price }} СОМ/ШТ</span>
+                                                {% if product.price %}
+                                                <span class="sale-price">{{ product.price }} СОМ/ШТ</span>
+                                                {% else %}
+                                                <span class="sale-price">Цена по запросу</span>
+                                                {% endif %}
                                             </div>
                                         </div>
                                         <ul class="product-meta">

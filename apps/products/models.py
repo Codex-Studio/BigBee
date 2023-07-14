@@ -2,15 +2,16 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 from apps.categories.models import Category
+from apps.shops.models import Shop
 
 User = get_user_model()
 
 # Create your models here.
 class Product(models.Model):
-    user = models.ForeignKey(
-        User, on_delete=models.CASCADE,
-        related_name="user_products",
-        verbose_name="Пользователь"
+    shop = models.ForeignKey(
+        Shop, on_delete=models.CASCADE,
+        related_name="shop_products",
+        verbose_name="Магазин"
     )
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL,
@@ -23,7 +24,8 @@ class Product(models.Model):
         verbose_name="Заголовок"
     )
     description = models.TextField(
-        verbose_name="Описание"
+        verbose_name="Описание",
+        blank=True, null=True
     )
     image = models.ImageField(
         upload_to='product_images/',
@@ -31,7 +33,8 @@ class Product(models.Model):
         blank=True, null=True
     )
     price = models.PositiveIntegerField(
-        verbose_name="Цена"
+        verbose_name="Цена",
+        blank=True, null=True
     )
     created = models.DateTimeField(
         auto_now_add=True,

@@ -8,3 +8,4 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug')
     search_fields = ('title', 'slug')
     list_per_page = 20
+    prepopulated_fields = {'slug' : ('title', )}

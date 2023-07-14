@@ -331,16 +331,22 @@
                                 {{ product.title }}
                             </h4>
                             <div class="price">
+                                {% if product.price %}
                                 <span class="sale-price">{{ product.price }} СОМ/ШТ</span>
-                                <span class="old-price">{{ product.price }} СОМ/ШТ</span>
+                                {% else %}
+                                <span class="sale-price">Цена по запросу</span>
+                                {% endif %}
                             </div>
-                            <div class="review-wrapper">
+                            <!-- <div class="review-wrapper">
                                 <div class="review-star">
                                     <div class="star" style="width: 80%"></div>
                                 </div>
                                 <p>( 2 отзыва )</p>
+                            </div> -->
+                            <div class="single-info">
+                                <span class="lable">Магазин:</span>
+                                <span class="value"><a href="#">{{ product.shop }}</a></span>
                             </div>
-
                             <p>
                                 {{ product.description }}
                             </p>
@@ -365,7 +371,7 @@
                                 <div class="single-info">
                                     <span class="lable">Категория:</span>
                                     <span class="value"
-                                            ><a href="#">{{ product.category.title }}</a></span>
+                                            ><a href="{% url 'category_detail' product.category.slug %}">{{ product.category.title }}</a></span>
                                 </div>
                                 <div class="single-info">
                                     <span class="lable">Поделиться:</span>

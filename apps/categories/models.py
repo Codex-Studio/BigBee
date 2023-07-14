@@ -14,6 +14,7 @@ class Category(models.Model):
         blank=True, null=True,
         unique=True
     )
+    subcategories = models.ManyToManyField('self', blank=True, symmetrical=False)
 
     def __str__(self):
         return f"{self.title} {self.slug}"
