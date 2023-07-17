@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 from dotenv import load_dotenv
+from urllib.parse import urlparse
+from django.conf import settings
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,7 +36,7 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -46,8 +48,16 @@ INSTALLED_APPS = [
     'apps.users',
     'apps.categories',
     'apps.products',
-    'apps.shops'
+    'apps.shops',
+
+    #admin
+    'jazzmin',
+    'django.contrib.admin',
 ]
+
+JAZZMIN_UI_TWEAKS = {
+    "theme": "cyborg",
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -94,6 +104,19 @@ DATABASES = {
     }
 }
 
+db_url = os.environ.get('DATABASE_URL')
+if db_url:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': urlparse(db_url).path[1:],
+        'USER': urlparse(db_url).username,
+        'PASSWORD': urlparse(db_url).password,
+        'HOST': urlparse(db_url).hostname,
+        'PORT': urlparse(db_url).port,
+    }
+
+# Обновление настроек базы данных Django
+settings.DATABASES = DATABASES
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators

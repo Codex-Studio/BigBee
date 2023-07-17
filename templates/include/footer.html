@@ -30,21 +30,7 @@
                     </div>
                     <!-- Footer Contact & Payment End -->
                 </div>
-                <div class="col-xl-5">
-                    <!-- Footer Subscribe End -->
-                    <div class="footer-subscribe">
-                        <span class="title">Subscribe Now :</span>
-                        <div class="subscribe-form">
-                            <form action="#">
-                                <input type="text" placeholder="Your Mail" />
-                                <button>
-                                    <i class="pe-7s-paper-plane"></i>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- Footer Subscribe End -->
-                </div>
+                
             </div>
         </div>
     </div>
@@ -57,14 +43,14 @@
                 <div class="col-lg-3 col-md-4 col-sm-6">
                     <!-- Footer Widget Start -->
                     <div class="footer-widget">
-                        <h4 class="footer-widget-title">Customer Service</h4>
+                        <h4 class="footer-widget-title">Обслуживание клиентов</h4>
 
                         <ul class="footer-link">
-                            <li><a href="#">Payment Methods</a></li>
-                            <li><a href="#">Money-back guarantee!</a></li>
-                            <li><a href="#">Returns-Shipping</a></li>
-                            <li><a href="#">Terms and conditions</a></li>
-                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Способы оплаты</a></li>
+                            <li><a href="#">Гарантия возврата денег!</a></li>
+                            <li><a href="#">Возврат-Доставка</a></li>
+                            <li><a href="#">Условия и положения</a></li>
+                            <li><a href="#">Политика конфиденциальности</a></li>
                         </ul>
                     </div>
                     <!-- Footer Widget End -->
@@ -72,16 +58,16 @@
                 <div class="col-lg-2 col-md-4 col-sm-6">
                     <!-- Footer Widget Start -->
                     <div class="footer-widget">
-                        <h4 class="footer-widget-title">Information</h4>
+                        <h4 class="footer-widget-title">Информация</h4>
 
                         <ul class="footer-link">
-                            <li><a href="about.html">About Furbar</a></li>
+                            <li><a href="about.html">О {{ setting.title }}</a></li>
                             <li>
-                                <a href="shop-grid-4-column.html">How to Shop</a>
+                                <a href="shop-grid-4-column.html">Как делать покупки</a>
                             </li>
                             <li><a href="#">FAQ</a></li>
-                            <li><a href="contact.html">Contact us</a></li>
-                            <li><a href="login.html">Log in</a></li>
+                            <li><a href="contact.html">Связаться с нами</a></li>
+                            <li><a href="login.html">Авторизоваться</a></li>
                         </ul>
                     </div>
                     <!-- Footer Widget End -->
@@ -89,14 +75,14 @@
                 <div class="col-lg-2 col-md-4 col-sm-6">
                     <!-- Footer Widget Start -->
                     <div class="footer-widget">
-                        <h4 class="footer-widget-title">My Account</h4>
+                        <h4 class="footer-widget-title">Мой счет</h4>
 
                         <ul class="footer-link">
-                            <li><a href="register.html">Sign In</a></li>
-                            <li><a href="cart.html">View Cart</a></li>
-                            <li><a href="wishlist.html">My Wishlist</a></li>
-                            <li><a href="#">Track My Order</a></li>
-                            <li><a href="#">Help</a></li>
+                            <li><a href="register.html">Войти</a></li>
+                            <li><a href="cart.html">Посмотреть корзину</a></li>
+                            <li><a href="wishlist.html">Мой список пожеланий</a></li>
+                            <li><a href="#">Отслеживать свой заказ</a></li>
+                            <li><a href="#">Помощь</a></li>
                         </ul>
                     </div>
                     <!-- Footer Widget End -->
@@ -104,14 +90,14 @@
                 <div class="col-lg-2 col-md-5 col-sm-6">
                     <!-- Footer Widget Start -->
                     <div class="footer-widget">
-                        <h4 class="footer-widget-title">Our Stores</h4>
+                        <h4 class="footer-widget-title">Наши магазины</h4>
 
                         <ul class="footer-link">
-                            <li><a href="#">New aYork</a></li>
-                            <li><a href="#">London SF</a></li>
-                            <li><a href="#">Cockfosters BP</a></li>
-                            <li><a href="#">Los Angeles</a></li>
-                            <li><a href="#">Chicago</a></li>
+                            <li><a href="#">Нью-Йорк</a></li>
+                            <li><a href="#">Лондон Сан-Франциско</a></li>
+                            <li><a href="#">Кокфостерс БП</a></li>
+                            <li><a href="#">Лос-Анджелес</a></li>
+                            <li><a href="#">Чикаго</a></li>
                         </ul>
                     </div>
                     <!-- Footer Widget End -->
@@ -119,13 +105,11 @@
                 <div class="col-lg-3 col-md-7">
                     <!-- Footer Widget Start -->
                     <div class="footer-widget">
-                        <h4 class="footer-widget-title">About Us</h4>
+                        <h4 class="footer-widget-title">О нас</h4>
 
                         <div class="widget-about">
                             <p>
-                                Lorem ipsum dolor sit amet consect adipisicing
-                                elit sed do eiusmod temp incididunt ut labore et
-                                dolore magna aliqua. Ut enim ad minim
+                                {{ setting.description }}
                             </p>
                         </div>
                         <div class="widget-social">
