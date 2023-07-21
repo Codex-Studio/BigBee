@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'apps.categories',
     'apps.products',
     'apps.shops',
+    'apps.carts',
 
     #admin
     'jazzmin',
@@ -56,7 +57,7 @@ INSTALLED_APPS = [
 ]
 
 JAZZMIN_UI_TWEAKS = {
-    "theme": "cyborg",
+    "theme": "flatly",
 }
 
 MIDDLEWARE = [

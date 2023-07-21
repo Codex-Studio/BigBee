@@ -70,25 +70,29 @@
                         <div class="dropdown-menu dropdown-cart">
                             <div class="cart-content" id="cart-content">
                                 <ul>
+                                    {% if cart_items %}
+                                    {% for item in cart_items %}
                                     <li>
                                         <!-- Single Cart Item Start -->
                                         <div class="single-cart-item">
                                             <div class="cart-thumb">
-                                                <img src="{% static 'assets/images/cart/cart-1.jpg' %}" width="98" height="98" alt="Cart" />
+                                                <img src="{{ item.product.image.url }}" width="98" height="98" alt="Cart" />
                                                 <span class="product-quantity"
-                                                >1x</span>
+                                                >{{ item.quantity }}x</span>
                                             </div>
                                             <div class="cart-item-content">
                                                 <h6 class="product-name">
-                                                    <a href="#">High quality vase
-                                                        bottle</a>
+                                                    <a href="#">{{ item.product.title }}</a>
                                                 </h6>
-                                                <span class="product-price"
-                                                >$19.12</span>
+                                                {% if item.product.price %}
+                                                <span class="product-price">{{ item.product.price }} СОМ/ШТ</span>
+                                                {% else %}
+                                                <span class="product-price">Цена по запросу</span>
+                                                {% endif %}
                                                 <div class="attributes-content">
                                                     <span
-                                                    ><strong>Color:</strong>
-                                                    White
+                                                    ><strong>Количество:</strong>
+                                                    {{ item.quantity }}
                                                 </span>
                                                 </div>
                                                 <a class="cart-remove" href="#"><i class="las la-times"></i></a>
@@ -96,66 +100,16 @@
                                         </div>
                                         <!-- Single Cart Item End -->
                                     </li>
-                                    <li>
-                                        <!-- Single Cart Item Start -->
-                                        <div class="single-cart-item">
-                                            <div class="cart-thumb">
-                                                <img src="{% static 'assets/images/cart/cart-2.jpg' %}" width="98" height="98" alt="Cart" />
-                                                <span class="product-quantity"
-                                                >1x</span>
-                                            </div>
-                                            <div class="cart-item-content">
-                                                <h6 class="product-name">
-                                                    <a href="#">Living & Bedroom
-                                                        Chair</a>
-                                                </h6>
-                                                <span class="product-price"
-                                                >$19.12</span>
-                                                <div class="attributes-content">
-                                                    <span
-                                                    ><strong>Color:</strong>
-                                                    White
-                                                </span>
-                                                </div>
-                                                <a class="cart-remove" href="#"><i class="las la-times"></i></a>
-                                            </div>
-                                        </div>
-                                        <!-- Single Cart Item End -->
-                                    </li>
-                                    <li>
-                                        <!-- Single Cart Item Start -->
-                                        <div class="single-cart-item">
-                                            <div class="cart-thumb">
-                                                <img src="{% static 'assets/images/cart/cart-3.jpg' %}" width="98" height="98" alt="Cart" />
-                                                <span class="product-quantity"
-                                                >1x</span>
-                                            </div>
-                                            <div class="cart-item-content">
-                                                <h6 class="product-name">
-                                                    <a href="#">Herman Arm Grey
-                                                        Chair</a>
-                                                </h6>
-                                                <span class="product-price"
-                                                >$19.12</span>
-                                                <div class="attributes-content">
-                                                    <span
-                                                    ><strong>Color:</strong>
-                                                    White
-                                                </span>
-                                                </div>
-                                                <a class="cart-remove" href="#"><i class="las la-times"></i></a>
-                                            </div>
-                                        </div>
-                                        <!-- Single Cart Item End -->
-                                    </li>
+                                    {% endfor %}
+                                    {% endif %}
                                 </ul>
                             </div>
 
                             <div class="cart-price">
                                 <div class="cart-subtotals">
                                     <div class="price-inline">
-                                        <span class="label">Subtotal</span>
-                                        <span class="value">$42.70</span>
+                                        <span class="label">Подытог	</span>
+                                        <span class="value">{{ total_price }} СОМ</span>
                                     </div>
                                     <div class="price-inline">
                                         <span class="label">Shipping</span>
@@ -168,13 +122,13 @@
                                 </div>
                                 <div class="cart-total">
                                     <div class="price-inline">
-                                        <span class="label">Total</span>
-                                        <span class="value">$49.70</span>
+                                        <span class="label">Итоговая цена:</span>
+                                        <span class="value">{{ total_price }} СОМ</span>
                                     </div>
                                 </div>
                             </div>
                             <div class="checkout-btn">
-                                <a href="checkout.html" class="btn btn-dark btn-hover-primary d-block">Checkout</a>
+                                <a href="{% url 'cart' %}" class="btn btn-dark btn-hover-primary d-block">Корзина</a>
                             </div>
                         </div>
                     </div>
