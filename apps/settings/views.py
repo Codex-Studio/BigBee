@@ -16,9 +16,14 @@ def index(request):
     session_key = request.session.session_key
     cart = Cart.objects.filter(session_key=session_key).first()
     cart_items = []
+    # Проверяем, что корзина существует перед использованием aggregate
     if cart:
         cart_items = CartItem.objects.filter(cart=cart).annotate(
             total_price=ExpressionWrapper(F('product__price') * F('quantity'), output_field=DecimalField())
         )
-    total_price = cart_items.aggregate(total=Sum('total_price'))['total'] or 0
+
+        total_price = cart_items.aggregate(total=Sum('total_price'))['total'] or 0
+    else:
+        cart_items = []
+        total_price = 0
     return render(request, 'index-2.html', locals())
