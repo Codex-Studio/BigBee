@@ -23,12 +23,15 @@ def add_to_cart(request):
 
             cart, _ = Cart.objects.get_or_create(session_key=session_key)
 
-            # Проверяем, есть ли такой товар уже в корзине
-            cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+            # Получаем объект CartItem по cart и product
+            cart_item = CartItem.objects.filter(cart=cart, product=product).first()
 
-            if not created:
+            # Если CartItem существует, обновляем его количество, иначе создаем новый объект
+            if cart_item:
                 cart_item.quantity += quantity
                 cart_item.save()
+            else:
+                cart_item = CartItem.objects.create(cart=cart, product=product, quantity=quantity)
 
     return redirect('cart')
 
@@ -41,11 +44,22 @@ def cart(request):
         cart_items = CartItem.objects.filter(cart=cart).annotate(
             total_price=ExpressionWrapper(F('product__price') * F('quantity'), output_field=DecimalField())
         )
-
-    total_price = cart_items.aggregate(total=Sum('total_price'))['total'] or 0
-
-    # context = {
-    #     'cart_items': cart_items
-    # }
-
+        total_price = cart_items.aggregate(total=Sum('total_price'))['total'] or 0
+    else:
+        cart_items = []
+        total_price = 0
     return render(request, 'cart/index.html', locals())
+
+def clear_cart(request):
+    session_key = request.session.session_key
+    if session_key:
+        CartItem.objects.filter(cart__session_key=session_key).delete()
+
+    return redirect('cart')
+
+def remove_from_cart(request, product_id):
+    session_key = request.session.session_key
+    if session_key:
+        CartItem.objects.filter(cart__session_key=session_key, product__id=product_id).delete()
+
+    return redirect('cart')
