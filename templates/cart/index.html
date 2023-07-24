@@ -303,16 +303,19 @@
                                         <p>Color <span>White</span></p>
                                     </div>
                                 </td>
+                                <!-- ... Остальной код таблицы ... -->
                                 <td class="quantity">
                                     <div class="product-quantity d-inline-flex">
-                                        <button type="button" class="sub">-</button>
-                                        <input type="text" value="{{ item.quantity }}" />
-                                        <button type="button" class="add">+</button>
+                                        <button type="button" class="sub" data-product-id="{{ item.product.id }}">-</button>
+                                        <input type="text" class="quantity-input" value="{{ item.quantity }}" data-product-id="{{ item.product.id }}">
+                                        <button type="button" class="add" data-product-id="{{ item.product.id }}">+</button>
                                     </div>
                                 </td>
+                                
+                                <!-- ... Остальной код таблицы ... -->
                                 <td class="product-total-price">
                                     {% if item.total_price %}
-                                    <span class="price">{{ item.total_price }}</span>
+                                    <span class="price" data-product-id="{{ item.product.id }}" data-product-price="{{ item.product.price }}">{{ item.total_price }}</span>
                                     {% else %}
                                     <span class="price">Цена по запросу</span>
                                     {% endif %}
@@ -322,6 +325,37 @@
                                         <i class="pe-7s-trash"></i>
                                     </button></a>
                                 </td>
+                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                <script>
+                                    $(document).ready(function () {
+                                        $(".add").click (function () {
+                                            var productId = $(this).data("product-id");
+                                            var quantityInput = $(".quantity-input[data-product-id='" + productId + "']");
+                                            var currentQuantity = parseInt(quantityInput.val());
+                                            quantityInput.val(currentQuantity + 1);
+                                            updateTotalPrice(productId);
+                                        });
+                                
+                                        $(".sub").click(function () {
+                                            var productId = $(this).data("product-id");
+                                            var quantityInput = $(".quantity-input[data-product-id='" + productId + "']");
+                                            var currentQuantity = parseInt(quantityInput.val());
+                                            if (currentQuantity > 1) {
+                                                quantityInput.val(currentQuantity - 1);
+                                                updateTotalPrice(productId);
+                                            }
+                                        });
+                                
+                                        function updateTotalPrice(productId) {
+                                            var quantityInput = $(".quantity-input[data-product-id='" + productId + "']");
+                                            var currentQuantity = parseInt(quantityInput.val());
+                                            var priceElement = $(".price[data-product-id='" + productId + "']");
+                                            var productPrice = parseFloat(priceElement.data("product-price"));
+                                            var totalPrice = productPrice * currentQuantity;
+                                            priceElement.text(totalPrice.toFixed(2));
+                                        }
+                                    });
+                                </script>
                             </tr>
                             {% endfor %}
                             {% endif %}
