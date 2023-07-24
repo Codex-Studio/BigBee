@@ -15,5 +15,5 @@ class ShopAdmin(admin.ModelAdmin):
             # Если пользователь является персоналом сайта (is_staff = True),
             # показываем только данные, связанные с его магазином
             if request.user.shop:
-                qs = qs.filter(shop=request.user.shop)
+                qs = qs.filter(name=request.user.shop)
         return qs
