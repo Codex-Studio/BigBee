@@ -9,6 +9,10 @@ class Cart(models.Model):
 
     def __str__(self):
         return f"{self.session_key}"
+    
+    class Meta:
+        verbose_name = "Корзина"
+        verbose_name_plural = "Корзины"
 
 class CartItem(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
@@ -17,3 +21,7 @@ class CartItem(models.Model):
 
     def __str__(self):
         return f"{self.cart}"
+    
+    class Meta:
+        verbose_name = "Товар в корзине"
+        verbose_name_plural = "Товары в корзине"

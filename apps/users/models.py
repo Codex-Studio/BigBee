@@ -2,12 +2,20 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 import random, string
 
+from apps.shops.models import Shop
+
 # Create your models here.
 class User(AbstractUser):
     USER_ROLE_CHOICE = (
         ('Client', 'Client'),
         ('Partner', 'Partner'),
         ('Manager', 'Manager')
+    )
+    shop = models.ForeignKey(
+        Shop, on_delete=models.SET_NULL,
+        related_name='shop_manages',
+        verbose_name="Магазин",
+        blank=True, null=True
     )
     user_role = models.CharField(
         max_length=100,

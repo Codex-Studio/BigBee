@@ -17,7 +17,8 @@ def register(request):
         user = authenticate(username = username, password = password)
         login(request, user)
         user = User.objects.get(username=username)
-        return redirect('user_account', user.id)
+        # return redirect('user_account', user.id)
+        return redirect('index')
         # return redirect('index')
     return render(request, 'users/register.html', locals())
 
