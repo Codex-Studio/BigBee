@@ -11,6 +11,7 @@ class ImageTabularInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('shop', 'title', 'category', 'created')
     search_fields = ('shop__name', 'title', 'created')
+    fields = ('category', 'title', 'description', 'image', 'price')
     list_per_page = 20
     inlines = [ImageTabularInline]
 
@@ -21,6 +22,12 @@ class ProductAdmin(admin.ModelAdmin):
             # и у него есть магазин, показываем только товары, связанные с его магазином
             qs = qs.filter(shop=request.user.shop)
         return qs
+    
+    def save_model(self, request, obj, form, change):
+        # Если поле shop не установлено (например, при создании нового товара),
+        # устанавливаем его на магазин, связанный с текущим пользователем
+        obj.shop = request.user.shop
+        super().save_model(request, obj, form, change)
 
 @admin.register(ProductImage)
 class ProductImageAdmin(admin.ModelAdmin):
