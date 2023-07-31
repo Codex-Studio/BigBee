@@ -66,5 +66,13 @@ class ProductImage(models.Model):
         verbose_name = "Фотография продукта"
         verbose_name_plural = "Фотографии продуктов"
 
-# class BuyProduct(models.Model):
+class ProductFavorite(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.user.username} - {self.product.title}"
     
+    class Meta:
+        verbose_name = "Избранное"
+        verbose_name_plural = "Избранные"

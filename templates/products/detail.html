@@ -358,7 +358,7 @@
                                     <form method="post" action="{% url 'add_to_cart' %}">
                                         {% csrf_token %}
                                         <input type="hidden" name="product_id" value="{{ product.id }}">
-                                        <label for="quantity">Количество:</label>
+                                       
                                         <div class="product-quantity d-inline-flex">
                                             <button type="button" class="sub-btn" data-action="sub">-</button>
                                             <input type="number" id="quantity" name="quantity" min="1" value="1">
@@ -368,7 +368,19 @@
                                     </form>
                                 </div>
                             </div>
-
+                            <!-- Избранное начало -->
+                           
+                            <div class="product-meta">
+                                <div class="meta-action">
+                                    <form id="wishlist-form" method="post" action="{% url 'add_to_wishlist' product.id %}">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="product_id" value="{{ product.id }}">
+                                        <input type="submit" class="btn btn-dark btn-hover-primary" value="Добавить в избранное">
+                                    </form>
+                                </div>
+                            </div>
+                            
+                             <!-- Избранное конец -->
                             <div class="product-info">
                                 <div class="single-info">
                                     <span class="lable"

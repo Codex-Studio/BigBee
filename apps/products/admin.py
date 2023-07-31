@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from apps.products.models import Product, ProductImage
+from apps.products.models import Product, ProductImage, ProductFavorite
 
 # Register your models here.
 class ImageTabularInline(admin.TabularInline):
@@ -33,3 +33,8 @@ class ProductAdmin(admin.ModelAdmin):
 class ProductImageAdmin(admin.ModelAdmin):
     list_display = ('product', 'image')
     list_per_page = 20
+
+@admin.register(ProductFavorite)
+class ProductFavoriteAdmin(admin.ModelAdmin):
+    list_display = ('user', 'product')
+    search_fields = ('user__username', 'product__title')

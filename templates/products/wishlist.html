@@ -248,11 +248,11 @@
         <div class="container">
             <!-- Page Banner Content End -->
             <div class="page-banner-content">
-                <h2 class="title">Корзина</h2>
+                <h2 class="title">Избранное</h2>
 
                 <ul class="breadcrumb">
                     <li><a href="{% url 'index' %}">Домой</a></li>
-                    <li class="active">Корзина</li>
+                    <li class="active">Избранное</li>
                 </ul>
             </div>
             <!-- Page Banner Content End -->
@@ -275,14 +275,17 @@
                                 </th>
                                 <th class="product-quantity">Количество</th>
                                 <th class="product-total-price">
-                                    Итоговая цена
+                                    Цена
+                                </th>
+                                <th class="product-add-to-cart">
+                                    В корзину
                                 </th>
                                 <th class="product-action">Действие</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {% if cart_items %}
-                            {% for item in cart_items %}
+                            {% if wishlist_items %}
+                            {% for item in wishlist_items %}
                             <tr>
                                 <td class="product-thumb">
                                     <img src="{{ item.product.image.url }}" alt="" />
@@ -292,70 +295,32 @@
                                         <a href="product-details.html">{{ item.product.title }}</a>
                                     </h6>
                                     <div class="product-prices">
-                                        {% if item.product.price %}
-                                        <span class="sale-price">{{ item.product.price }} СОМ</span>
-                                        {% else %}
-                                        <span class="sale-price">Цена по запросу</span>
-                                        {% endif %}
+                                        <span class="sale-price">{{ item.product.price }} СОМ/ШТ</span>
                                     </div>
-                                    <div class="product-size-color">
-                                        <p>Size <span>S</span></p>
-                                        <p>Color <span>White</span></p>
-                                    </div>
+                                    
                                 </td>
-                                <!-- ... Остальной код таблицы ... -->
                                 <td class="quantity">
                                     <div class="product-quantity d-inline-flex">
-                                        <button type="button" class="sub" data-product-id="{{ item.product.id }}">-</button>
-                                        <input type="text" class="quantity-input" value="{{ item.quantity }}" data-product-id="{{ item.product.id }}">
-                                        <button type="button" class="add" data-product-id="{{ item.product.id }}">+</button>
+                                        <button type="button" class="sub">
+                                            -
+                                        </button>
+                                        <input type="text" value="1" />
+                                        <button type="button" class="add">
+                                            +
+                                        </button>
                                     </div>
                                 </td>
-                                
-                                <!-- ... Остальной код таблицы ... -->
                                 <td class="product-total-price">
-                                    {% if item.total_price %}
-                                    <span class="price" data-product-id="{{ item.product.id }}" data-product-price="{{ item.product.price }}">{{ item.total_price }}</span>
-                                    {% else %}
-                                    <span class="price">Цена по запросу</span>
-                                    {% endif %}
+                                    <span class="price">{{ item.product.price }} СОМ/ШТ</span>
+                                </td>
+                                <td class="product-add-to-cart">
+                                    <a href="#" class="btn btn-dark btn-hover-primary">Добавить в корзину</a>
                                 </td>
                                 <td class="product-action">
-                                    <a href="{% url 'remove_from_cart' item.product.id %}"><button class="remove">
+                                    <button class="remove">
                                         <i class="pe-7s-trash"></i>
-                                    </button></a>
+                                    </button>
                                 </td>
-                                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                                <script>
-                                    $(document).ready(function () {
-                                        $(".add").click (function () {
-                                            var productId = $(this).data("product-id");
-                                            var quantityInput = $(".quantity-input[data-product-id='" + productId + "']");
-                                            var currentQuantity = parseInt(quantityInput.val());
-                                            quantityInput.val(currentQuantity + 1);
-                                            updateTotalPrice(productId);
-                                        });
-                                
-                                        $(".sub").click(function () {
-                                            var productId = $(this).data("product-id");
-                                            var quantityInput = $(".quantity-input[data-product-id='" + productId + "']");
-                                            var currentQuantity = parseInt(quantityInput.val());
-                                            if (currentQuantity > 1) {
-                                                quantityInput.val(currentQuantity - 1);
-                                                updateTotalPrice(productId);
-                                            }
-                                        });
-                                
-                                        function updateTotalPrice(productId) {
-                                            var quantityInput = $(".quantity-input[data-product-id='" + productId + "']");
-                                            var currentQuantity = parseInt(quantityInput.val());
-                                            var priceElement = $(".price[data-product-id='" + productId + "']");
-                                            var productPrice = parseFloat(priceElement.data("product-price"));
-                                            var totalPrice = productPrice * currentQuantity;
-                                            priceElement.text(totalPrice.toFixed(2));
-                                        }
-                                    });
-                                </script>
                             </tr>
                             {% endfor %}
                             {% endif %}
@@ -363,97 +328,6 @@
                     </table>
                 </div>
                 <!-- Cart Wrapper End -->
-                <!-- Cart btn Start -->
-                <div class="cart-btn">
-                    <div class="left-btn">
-                        <a href="{% url 'index' %}" class="btn btn-dark btn-hover-primary">Продолжить покупки</a>
-                    </div>
-                    <div class="right-btn">
-                        <a href="{% url 'clear_cart' %}" class="btn btn-outline-dark">Очистить</a>
-                        <a href="#" class="btn btn-outline-dark">Обновить</a>
-                    </div>
-                </div>
-                <!-- Cart btn Start -->
-            </div>
-            <div class="row">
-                
-                <div class="col-lg-4">
-                    <!-- Cart Shipping Start -->
-                    <div class="cart-shipping">
-                        <div class="cart-title">
-                            <h4 class="title">Промокод</h4>
-                            <p>У вас есть промокод на товар?</p>
-                        </div>
-                        <div class="cart-form">
-                            <form action="#">
-                                <div class="single-form">
-                                    <input class="form-control" type="text" placeholder="Введите промокод здесь..." />
-                                </div>
-                                <div class="single-form">
-                                    <button class="btn btn-dark btn-hover-primary">
-                                        Ввести промокод
-                                    </button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <!-- Cart Shipping End -->
-                </div>
-                <div class="col-lg-4">
-                    <!-- Cart Totals Start -->
-                    <div class="cart-totals">
-                        <div class="cart-title">
-                            <h4 class="title">Итоговая цена</h4>
-                        </div>
-                        <div class="cart-total-table">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td>
-                                            <p class="value">Подытог</p>
-                                        </td>
-                                        <td>
-                                            <p class="price">{{ total_price }} СОМ</p>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p class="value">Доставка</p>
-                                        </td>
-                                        <td>
-                                            <ul class="shipping-list">
-                                                <li class="radio">
-                                                    <input type="radio" name="shipping" id="radio1" checked="" />
-                                                    <label for="radio1"><span></span>Самовывоз</label>
-                                                </li>
-                                                <li class="radio">
-                                                    <input type="radio" name="shipping" id="radio2" />
-                                                    <label for="radio2"><span></span>Доставка</label>
-                                                </li>
-                                                <li class="radio">
-                                                    <input type="radio" name="shipping" id="radio3" />
-                                                    <label for="radio3"><span></span>Связаться с менеджером</label>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <p class="value">Итого</p>
-                                        </td>
-                                        <td>
-                                            <p class="price">{{ total_price }} СОМ</p>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="cart-total-btn">
-                            <a href="#" class="btn btn-dark btn-hover-primary btn-block">Оформить заказ</a>
-                        </div>
-                    </div>
-                    <!-- Cart Totals End -->
-                </div>
             </div>
         </div>
     </div>
