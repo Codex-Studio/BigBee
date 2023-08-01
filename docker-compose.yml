@@ -10,13 +10,18 @@ services:
       - DB_USER_PASSWORD=geeksstudents
       - DB_HOST=db
       - DB_PORT=5432
+    env_file:
+      - .env
     depends_on:
       - db
   db:
-    image: postgres:latest
+    image: postgres:14
+    container_name: shopify_db
     environment:
       - POSTGRES_DB=shopify
       - POSTGRES_USER=kuma
       - POSTGRES_PASSWORD=geeksstudents
-    ports:
-      - "5432:5432"
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data/
+    # ports:
+    #   - "5432:5432"
