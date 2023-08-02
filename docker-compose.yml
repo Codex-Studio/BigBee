@@ -1,27 +1,29 @@
 version: "3"
 services:
-  app:
-    build: .
-    ports:
-      - "8000:8000"
-    environment:
-      - DB_NAME=shopify
-      - DB_USER=kuma
-      - DB_USER_PASSWORD=geeksstudents
-      - DB_HOST=db
-      - DB_PORT=5432
-    env_file:
-      - .env
-    depends_on:
-      - db
   db:
-    image: postgres:14
+    image: postgres:13
     container_name: shopify_db
     environment:
       - POSTGRES_DB=shopify
       - POSTGRES_USER=kuma
       - POSTGRES_PASSWORD=geeksstudents
-    # volumes:
-    #   - postgres_data:/var/lib/postgresql/data/
-    # ports:
-    #   - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000 --noreload"
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://kuma:geeksstudents@db:5432/shopify
+      DJANGO_SUPERUSER_USERNAME: admin  # Укажите желаемое имя пользователя здесь
+      DJANGO_SUPERUSER_EMAIL: admin@example.com  # Укажите желаемый адрес электронной почты здесь
+      DJANGO_SUPERUSER_PASSWORD: admin1234  # Укажите желаемый пароль здесь
+
+volumes:
+  postgres_data:
