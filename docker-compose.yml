@@ -12,7 +12,7 @@ services:
 
   app:
     build: .
-    command: bash -c "python manage.py migrate && python manage.py createsuperuser --noinput && python manage.py runserver 0.0.0.0:8000 --noreload"
+    command: bash -c "python manage.py migrate && python manage.py createsuperuser --noinput && python3 manage.py settings && python manage.py runserver 0.0.0.0:8000 --noreload"
     ports:
       - "8000:8000"
     volumes:
