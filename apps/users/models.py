@@ -15,25 +15,36 @@ class User(AbstractUser):
         Shop, on_delete=models.SET_NULL,
         related_name='shop_manages',
         verbose_name="Магазин",
-        blank=True, null=True
+        blank=True, null=True,
+        help_text="Магазин на котором менеджер может создавать товары и управлять ими"
     )
     user_role = models.CharField(
         max_length=100,
         choices=USER_ROLE_CHOICE,
         verbose_name="Роль пользователя",
-        default='Client'
+        default='Client',
     )
     phone = models.CharField(
         max_length=50,
-        verbose_name="Телефонный номер"
+        verbose_name="Телефонный номер",
+        blank=True, null=True,
+        help_text="Телефонный номер менеджера для контакта"
     )
     address = models.CharField(
         max_length=100,
-        verbose_name="Адрес"
+        verbose_name="Адрес",
+        blank=True, null=True,
+        help_text="Адрес проживания"
     )
     promo_code = models.CharField(
         max_length=100,
-        blank=True, null=True
+        blank=True, null=True,
+        help_text="Промо код пользователя"
+    )
+    telegram_chat_id = models.IntegerField(
+        verbose_name="Chat ID",
+        blank=True, null=True,
+        help_text="Chat ID менеджера для получения уведомления с маркетплейса"
     )
     
     def __str__(self):
