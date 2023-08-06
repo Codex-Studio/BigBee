@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'apps.products',
     'apps.shops',
     'apps.carts',
+    'apps.billing',
+    'apps.telegram',
 
     #admin
     'jazzmin',
