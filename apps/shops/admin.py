@@ -11,7 +11,7 @@ class ShopAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        if request.user.is_staff:
+        if request.user.is_staff and not request.user.is_superuser:
             # Если пользователь является персоналом сайта (is_staff = True),
             # показываем только данные, связанные с его магазином
             if request.user.shop:

@@ -11,7 +11,6 @@ class ImageTabularInline(admin.TabularInline):
 class ProductAdmin(admin.ModelAdmin):
     list_display = ('shop', 'title', 'category', 'created')
     search_fields = ('shop__name', 'title', 'created')
-    fields = ('category', 'title', 'description', 'image', 'price')
     list_per_page = 20
     inlines = [ImageTabularInline]
 
@@ -28,6 +27,13 @@ class ProductAdmin(admin.ModelAdmin):
         # устанавливаем его на магазин, связанный с текущим пользователем
         obj.shop = request.user.shop
         super().save_model(request, obj, form, change)
+
+    def get_fields(self, request, obj=None):
+        fields = super().get_fields(request, obj)
+        if not request.user.is_superuser:
+            # Если пользователь не является администратором сайта, скрываем поле 'shop'
+            fields = [field for field in fields if field != 'shop']
+        return fields
 
 @admin.register(ProductImage)
 class ProductImageAdmin(admin.ModelAdmin):
