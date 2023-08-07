@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils.translation import gettext as _
+import uuid
 
 from apps.products.models import Product
 
@@ -29,12 +30,21 @@ class Billing(models.Model):
     status = models.BooleanField(
         default=False, verbose_name="Статус заказа"
     )
+    payment_code = models.CharField(
+        max_length=20, unique=True,
+        verbose_name="Код оплаты биллинга",
+    )
     created = models.DateTimeField(
         auto_now_add=True, verbose_name="Дата создания биллинга"
     )
 
     def __str__(self):
         return f"{self.user} {self.created}"
+    
+    def save(self, *args, **kwargs):
+        if not self.payment_code:
+            self.payment_code = str(uuid.uuid4().int)[:20]  # Генерируем UUID и оставляем только первые 20 цифр
+        super().save(*args, **kwargs)
     
     class Meta:
         verbose_name = "Биллинг"
