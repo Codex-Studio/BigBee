@@ -449,7 +449,17 @@
                             </table>
                         </div>
                         <div class="cart-total-btn">
-                            <a href="#" class="btn btn-dark btn-hover-primary btn-block">Оформить заказ</a>
+                            <!-- <form method="post" action="{% url 'create_billing' %}">
+                                {% csrf_token %}
+                                <input type="submit" value="Оформить заказ">
+                                <a href="#" class="btn btn-dark btn-hover-primary btn-block">Оформить заказ</a>
+                            </form> -->
+                            <form method="post" action="{% url 'create_billing' %}">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <input type="submit" value="Оформить заказ">
+                            </form>
+                            
                         </div>
                     </div>
                     <!-- Cart Totals End -->
