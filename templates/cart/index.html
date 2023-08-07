@@ -400,6 +400,8 @@
                     <!-- Cart Shipping End -->
                 </div>
                 <div class="col-lg-4">
+                    <form method="post" action="{% url 'create_billing' %}">
+
                     <!-- Cart Totals Start -->
                     <div class="cart-totals">
                         <div class="cart-title">
@@ -416,27 +418,8 @@
                                             <p class="price">{{ total_price }} СОМ</p>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <p class="value">Доставка</p>
-                                        </td>
-                                        <td>
-                                            <ul class="shipping-list">
-                                                <li class="radio">
-                                                    <input type="radio" name="shipping" id="radio1" checked="" />
-                                                    <label for="radio1"><span></span>Самовывоз</label>
-                                                </li>
-                                                <li class="radio">
-                                                    <input type="radio" name="shipping" id="radio2" />
-                                                    <label for="radio2"><span></span>Доставка</label>
-                                                </li>
-                                                <li class="radio">
-                                                    <input type="radio" name="shipping" id="radio3" />
-                                                    <label for="radio3"><span></span>Связаться с менеджером</label>
-                                                </li>
-                                            </ul>
-                                        </td>
-                                    </tr>
+                                    {% csrf_token %}
+                                    {{ form.as_p }}
                                     <tr>
                                         <td>
                                             <p class="value">Итого</p>
@@ -454,15 +437,14 @@
                                 <input type="submit" value="Оформить заказ">
                                 <a href="#" class="btn btn-dark btn-hover-primary btn-block">Оформить заказ</a>
                             </form> -->
-                            <form method="post" action="{% url 'create_billing' %}">
-                                {% csrf_token %}
-                                {{ form.as_p }}
+                                
                                 <input type="submit" value="Оформить заказ">
-                            </form>
+                            
                             
                         </div>
                     </div>
                     <!-- Cart Totals End -->
+                </form>
                 </div>
             </div>
         </div>

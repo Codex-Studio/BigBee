@@ -27,12 +27,12 @@ class Billing(models.Model):
         default=BillingReceiptTypeChoices.DELIVERY,
         verbose_name=_('Вид получения товара')
     )
-    status = models.BooleanField(
-        default=False, verbose_name="Статус заказа"
-    )
     payment_code = models.CharField(
         max_length=20, unique=True,
         verbose_name="Код оплаты биллинга",
+    )
+    status = models.BooleanField(
+        default=False, verbose_name="Статус заказа"
     )
     created = models.DateTimeField(
         auto_now_add=True, verbose_name="Дата создания биллинга"

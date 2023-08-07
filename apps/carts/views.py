@@ -5,6 +5,7 @@ from apps.products.models import Product
 from apps.carts.models import Cart, CartItem
 from apps.carts.forms import AddToCartForm
 from apps.settings.models import Setting
+from apps.billing.forms import BillingForm
 
 # Create your views here.
 def add_to_cart(request):
@@ -48,6 +49,35 @@ def cart(request):
     else:
         cart_items = []
         total_price = 0
+        
+    if request.method == 'POST':
+        form = BillingForm(request.POST)
+        if form.is_valid():
+            billing = form.save(commit=False)
+            billing.user = request.user
+            billing.save()
+
+            # Получаем или создаем корзину для текущей сессии
+            session_key = request.session.session_key
+            if not session_key:
+                request.session.save()
+                session_key = request.session.session_key
+
+            cart, _ = Cart.objects.get_or_create(session_key=session_key)
+
+            # Создаем связи между биллингом и товарами из корзины
+            for cart_item in cart.items.all():
+                print(cart_item)
+                billing.products.add(cart_item)
+                print(billing)
+            
+            # Удаляем связи товаров с корзиной, не удаляя товары самих из базы данных
+            print(cart)
+            cart.items.clear()
+
+            return redirect('billing_success')
+    else:
+        form = BillingForm()
     return render(request, 'cart/index.html', locals())
 
 def clear_cart(request):
