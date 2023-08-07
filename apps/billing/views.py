@@ -24,10 +24,13 @@ def create_billing(request):
 
             # Создаем связи между биллингом и товарами из корзины
             for cart_item in cart.items.all():
-                billing.products.add(cart_item.id)
+                print(cart_item)
+                billing.products.add(cart_item)
+                print(billing)
             
-            # Очищаем корзину после оформления биллинга
-            cart.items.all().delete()
+            # Удаляем связи товаров с корзиной, не удаляя товары самих из базы данных
+            print(cart)
+            cart.items.clear()
 
             return redirect('billing_success')
     else:
