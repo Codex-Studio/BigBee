@@ -4,6 +4,7 @@ from django.utils.translation import gettext as _
 import uuid
 
 from apps.products.models import Product
+from apps.shops.models import Shop
 
 User = get_user_model()
 
@@ -21,6 +22,10 @@ class Billing(models.Model):
     products = models.ManyToManyField(
         Product, related_name="billing_products",
         verbose_name="Товары"
+    )
+    shops = models.ManyToManyField(
+        Shop, related_name="billing_shops",
+        verbose_name="Магазины"
     )
     billing_receipt_type = models.CharField(
         max_length=100, choices=BillingReceiptTypeChoices.choices,

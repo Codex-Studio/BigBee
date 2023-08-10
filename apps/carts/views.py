@@ -6,6 +6,7 @@ from apps.carts.models import Cart, CartItem
 from apps.carts.forms import AddToCartForm
 from apps.settings.models import Setting
 from apps.billing.forms import BillingForm
+from apps.telegram.views import send_billing_notification
 
 # Create your views here.
 def add_to_cart(request):
@@ -67,13 +68,19 @@ def cart(request):
 
             # Создаем связи между биллингом и товарами из корзины
             for cart_item in cart.items.all():
-                print(cart_item)
                 billing.products.add(cart_item)
-                print(billing)
+                print(f"Shop {cart_item.shop}")
+                billing.shops.add(cart_item.shop)
             
             # Удаляем связи товаров с корзиной, не удаляя товары самих из базы данных
-            print(cart)
             cart.items.clear()
+
+            # Вытащить поля из объекта billing
+            # user = billing.user
+            # products = billing.products.all()
+            # payment_code = billing.payment_code
+            # shop = billing.
+            
 
             return redirect('billing_success')
     else:
