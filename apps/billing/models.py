@@ -44,7 +44,7 @@ class Billing(models.Model):
     )
 
     def __str__(self):
-        return f"{self.user} {self.created}"
+        return f"{self.billing_receipt_type} {self.payment_code}"
     
     def save(self, *args, **kwargs):
         if not self.payment_code:

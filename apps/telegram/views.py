@@ -18,3 +18,4 @@ async def start(message:types.Message):
 
 async def send_billing_notification(manager_id:int, shop:str, user:int, products:str, billing_receipt_type:str, payment_code:int, created:str):
     await bot.send_message(manager_id, f"Billing shop: {shop}\nПользователь: {user}\nТовары: {products}\nТип доставки: {billing_receipt_type}\nКод оплаты{payment_code}\nДата создания: {created}")
+    # print("NOTIFICATION SEND")
