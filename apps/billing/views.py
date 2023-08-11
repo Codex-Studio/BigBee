@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect
+from asgiref.sync import sync_to_async
 import asyncio
 
-from apps.billing.models import Billing
-from apps.billing.forms import BillingForm
-from apps.products.models import Product
-from apps.carts.models import Cart, CartItem
+from apps.carts.models import Cart
 from apps.users.models import User
-from apps.telegram.views import send_billing_notification
+from apps.billing.forms import BillingForm
+from apps.telegram.views import send_billing_notification, send_error_billing_notification
+from apps.shops.models import Shop
 
 # Create your views here.
 def create_billing(request):
@@ -33,19 +33,40 @@ def create_billing(request):
 
                 # Получаем пользователей (менеджеров), связанных с магазином
                 users_in_shop = User.objects.filter(shop_id=shop_id)
+                
+                # Разделям товары биллинга по магазинам
+                products_in_shop = cart_item.shop.shop_products.all()
 
-                for user in users_in_shop:
-                    if user.telegram_chat_id:
-                        asyncio.run(send_billing_notification(
-                            manager_id=user.telegram_chat_id,
+                # Получаем магазины, у которых нет привязанных менеджеров
+                shops_without_managers = Shop.objects.filter(shop_manages=None)
+
+                # Объединить список менеджеров и магазинов без менеджеров в один список:
+                all_recipients = list(users_in_shop) + list(shops_without_managers)
+                print(all_recipients)
+
+                for user in all_recipients:
+                    if isinstance(user, User):
+                        if user.telegram_chat_id:
+                            asyncio.run(send_billing_notification(
+                                manager_id=user.telegram_chat_id,
+                                shop=cart_item.shop.name,
+                                user=request.user.username,
+                                products=", ".join([str(item) for item in products_in_shop]),
+                                billing_receipt_type=billing.billing_receipt_type,
+                                payment_code=billing.payment_code,
+                                created=billing.created.strftime("%Y-%m-%d %H:%M:%S")
+                            ))
+                            print("WORK")
+                    if isinstance(user, Shop) and not user.shop_manages.exists():
+                        asyncio.run(send_error_billing_notification(
+                            chat_id=-758945574,
                             shop=cart_item.shop.name,
-                            user=request.user.username,
-                            products=", ".join([str(item) for item in billing.products.all()]),
+                            products=", ".join([str(item) for item in products_in_shop]),
                             billing_receipt_type=billing.billing_receipt_type,
                             payment_code=billing.payment_code,
                             created=billing.created.strftime("%Y-%m-%d %H:%M:%S")
                         ))
-                        print("WORK")
+                        print("SEND ERROR")
             # Удаляем связи товаров с корзиной, не удаляя товары самих из базы данных
             cart.items.clear()
 

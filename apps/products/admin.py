@@ -16,7 +16,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         qs = super().get_queryset(request)
-        if request.user.is_staff and request.user.shop:
+        if request.user.is_staff and request.user.shop and not request.user.is_superuser:
             # Если пользователь является персоналом сайта (is_staff = True)
             # и у него есть магазин, показываем только товары, связанные с его магазином
             qs = qs.filter(shop=request.user.shop)
@@ -25,8 +25,11 @@ class ProductAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         # Если поле shop не установлено (например, при создании нового товара),
         # устанавливаем его на магазин, связанный с текущим пользователем
-        obj.shop = request.user.shop
-        super().save_model(request, obj, form, change)
+        if request.user.is_staff and request.user.shop and not request.user.is_superuser:
+            obj.shop = request.user.shop
+            super().save_model(request, obj, form, change)
+        else:
+            super().save_model(request, obj, form, change)
 
     def get_fields(self, request, obj=None):
         fields = super().get_fields(request, obj)
