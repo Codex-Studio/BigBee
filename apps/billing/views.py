@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from asgiref.sync import sync_to_async
+from asgiref.sync import async_to_sync
 import asyncio
 
 from apps.carts.models import Cart
@@ -25,6 +25,9 @@ def create_billing(request):
 
             cart, _ = Cart.objects.get_or_create(session_key=session_key)
 
+            # Получаем магазины, у которых нет привязанных менеджеров
+            shops_without_managers = Shop.objects.filter(shop_manages=None)
+
             # Получаем связанных менеджеров и отправляем им уведомления
             for cart_item in cart.items.all():
                 billing.products.add(cart_item)
@@ -33,21 +36,15 @@ def create_billing(request):
 
                 # Получаем пользователей (менеджеров), связанных с магазином
                 users_in_shop = User.objects.filter(shop_id=shop_id)
-                
-                # Разделям товары биллинга по магазинам
+
+                # Разделяем товары биллинга по магазинам
                 products_in_shop = cart_item.shop.shop_products.all()
 
-                # Получаем магазины, у которых нет привязанных менеджеров
-                shops_without_managers = Shop.objects.filter(shop_manages=None)
-
-                # Объединить список менеджеров и магазинов без менеджеров в один список:
-                all_recipients = list(users_in_shop) + list(shops_without_managers)
-                print(all_recipients)
-
-                for user in all_recipients:
-                    if isinstance(user, User):
+                # Проверяем, есть ли менеджеры у магазина
+                if users_in_shop.exists():
+                    for user in users_in_shop:
                         if user.telegram_chat_id:
-                            asyncio.run(send_billing_notification(
+                            async_to_sync(send_billing_notification)(
                                 manager_id=user.telegram_chat_id,
                                 shop=cart_item.shop.name,
                                 user=request.user.username,
@@ -55,18 +52,18 @@ def create_billing(request):
                                 billing_receipt_type=billing.billing_receipt_type,
                                 payment_code=billing.payment_code,
                                 created=billing.created.strftime("%Y-%m-%d %H:%M:%S")
-                            ))
+                            )
                             print("WORK")
-                    if isinstance(user, Shop) and not user.shop_manages.exists():
-                        asyncio.run(send_error_billing_notification(
-                            chat_id=-758945574,
-                            shop=cart_item.shop.name,
-                            products=", ".join([str(item) for item in products_in_shop]),
-                            billing_receipt_type=billing.billing_receipt_type,
-                            payment_code=billing.payment_code,
-                            created=billing.created.strftime("%Y-%m-%d %H:%M:%S")
-                        ))
-                        print("SEND ERROR")
+                else:
+                    async_to_sync(send_error_billing_notification)(
+                        chat_id=-758945574,
+                        shop=cart_item.shop.name,
+                        products=", ".join([str(item) for item in products_in_shop]),
+                        billing_receipt_type=billing.billing_receipt_type,
+                        payment_code=billing.payment_code,
+                        created=billing.created.strftime("%Y-%m-%d %H:%M:%S")
+                    )
+                    print("SEND ERROR")
             # Удаляем связи товаров с корзиной, не удаляя товары самих из базы данных
             cart.items.clear()
 
