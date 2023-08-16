@@ -1,14 +1,11 @@
 from django.shortcuts import render, redirect
 from django.db.models import F, ExpressionWrapper, DecimalField, Sum
-import asyncio
 
 from apps.products.models import Product
 from apps.carts.models import Cart, CartItem
 from apps.carts.forms import AddToCartForm
 from apps.settings.models import Setting
 from apps.billing.forms import BillingForm
-from apps.telegram.views import send_billing_notification
-from apps.users.models import User
 
 # Create your views here.
 def add_to_cart(request):

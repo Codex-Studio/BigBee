@@ -12,7 +12,7 @@
             <div class="col-lg-6">
                 <div class="header-menu">
                     <ul class="nav-menu">
-                        <li><a href="{% url 'index' %}">Домой</a></li>
+                        <li><a href="{% url 'index' %}" hx-get="{% url 'index' %}">Домой</a></li>
                         <li><a href="about.html">О нас</a></li>
                         <li><a href="contact.html">Контакты</a></li>
                         {% if request.user.is_authenticated %}
@@ -20,8 +20,8 @@
                         <li><a href="{% url 'user_account' request.user.id %}">{{ request.user.username }}</a></li>
                         <li><a href="{% url 'logout' %}">Выйти</a></li>
                         {% else %}
-                        <li><a href="{% url 'user_login' %}">Авторизация</a></li>
-                        <li><a href="{% url 'register' %}">Регистрация</a></li>
+                        <li><a href="{% url 'user_login' %}" hx-get="{% url 'user_login' %}">Авторизация</a></li>
+                        <li><a href="{% url 'register' %}" hx-get="{% url 'register' %}">Регистрация</a></li>
                         {% endif %}
                     </ul>
                 </div>

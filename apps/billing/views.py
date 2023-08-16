@@ -25,9 +25,6 @@ def create_billing(request):
 
             cart, _ = Cart.objects.get_or_create(session_key=session_key)
 
-            # Получаем магазины, у которых нет привязанных менеджеров
-            shops_without_managers = Shop.objects.filter(shop_manages=None)
-
             # Получаем связанных менеджеров и отправляем им уведомления
             for cart_item in cart.items.all():
                 billing.products.add(cart_item)

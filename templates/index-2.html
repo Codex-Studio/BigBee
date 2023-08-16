@@ -368,9 +368,9 @@
                                     <div class="single-product-02">
                                         <div class="product-images">
                                             {% if product.image %}
-                                            <a href="{% url 'product_detail' product.id %}"><img src="{{ product.image.url }}" width="270" height="303" alt="product" /></a>
+                                            <a href="{% url 'product_detail' product.id %}" hx-get="{% url 'product_detail' product.id %}"><img src="{{ product.image.url }}" width="270" height="303" alt="product" /></a>
                                             {% else %}
-                                            <a href="{% url 'product_detail' product.id %}"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png" width="270" height="303" alt="product" /></a>
+                                            <a href="{% url 'product_detail' product.id %}" hx-get="{% url 'product_detail' product.id %}"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/No-Image-Placeholder.svg/1665px-No-Image-Placeholder.svg.png" width="270" height="303" alt="product" /></a>
                                             {% endif %}
                                             <ul class="product-meta">
                                                 <li>
@@ -936,6 +936,7 @@
             </div>
         </div>
     </div>
+    
     {% endfor %}
     <!-- Quick View End -->
 
