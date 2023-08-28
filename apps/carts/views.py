@@ -49,7 +49,6 @@ def cart(request):
     else:
         cart_items = []
         total_price = 0
-        
     form = BillingForm()
     return render(request, 'cart/index.html', locals())
 
