@@ -26,4 +26,4 @@ def index(request):
     else:
         cart_items = []
         total_price = 0
-    return render(request, 'index-2.html', locals())
+    return render(request, 'index.html', locals())
