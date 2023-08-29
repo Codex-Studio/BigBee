@@ -949,7 +949,7 @@
                     </li>
                     {% for category in random_categories%}
                     <li class="nav-item flex-shrink-0 flex-md-shrink-1">
-                        <a class="nav-link text-gray-8" href="index.html#">{{ category.title }}</a>
+                        <a class="nav-link text-gray-8" href="{% url 'category_detail' category.slug %}">{{ category.title }}</a>
                     </li>
                     {% endfor %}
                 </ul>

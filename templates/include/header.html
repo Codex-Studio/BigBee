@@ -78,9 +78,9 @@
                         <!-- Nav -->
                         <nav class="navbar navbar-expand u-header__navbar py-0 justify-content-xl-between max-width-270 min-width-270">
                             <!-- Logo -->
-                            <h1 href="{% url 'index' %}" aria-label="Electro">
+                            <a href="{% url 'index' %}" style="color: black;"><h1 aria-label="Electro">
                                 {{ setting.title }}
-                            </h1>
+                            </h1></a>
                             <!-- End Logo -->
 
                             <!-- Fullscreen Toggle Button -->
@@ -420,7 +420,7 @@
                                                     <li class="nav-item u-header__nav-item"
                                                         data-event="hover"
                                                         data-position="left">
-                                                        <a href="{% url 'index' %}" class="nav-link u-header__nav-link font-weight-bold">{{ category.title }}</a>
+                                                        <a href="{% url 'category_detail' category.slug %}" class="nav-link u-header__nav-link font-weight-bold">{{ category.title }}</a>
                                                     </li>
                                                     {% endfor %}
                                                     
