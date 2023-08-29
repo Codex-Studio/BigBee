@@ -10,6 +10,7 @@ from apps.carts.models import Cart, CartItem
 def index(request):
     setting = Setting.objects.latest('id')
     categories = Category.objects.all()
+    random_categories = Category.objects.all().order_by('?')[:3]
     products = Product.objects.all()
     random_product = Product.objects.all().order_by('?')[:3]
     like_products = Product.objects.all().order_by('?')

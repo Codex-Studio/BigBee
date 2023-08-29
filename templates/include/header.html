@@ -79,7 +79,7 @@
                         <nav class="navbar navbar-expand u-header__navbar py-0 justify-content-xl-between max-width-270 min-width-270">
                             <!-- Logo -->
                             <h1 href="{% url 'index' %}" aria-label="Electro">
-                                BigBie
+                                {{ setting.title }}
                             </h1>
                             <!-- End Logo -->
 
@@ -256,15 +256,15 @@
                         <form class="js-focus-state">
                             <lскabel class="sr-only" for="searchproduct">Искать</lскabel>
                             <div class="input-group">
-                                <input type="email" class="form-control py-2 pl-5 font-size-15 border-right-0 height-40 border-width-2 rounded-left-pill border-primary" name="email" id="searchproduct-item" placeholder="Search for Products" aria-label="Искать товар или магазин" aria-describedby="searchProduct1" required>
+                                <input type="email" class="form-control py-2 pl-5 font-size-15 border-right-0 height-40 border-width-2 rounded-left-pill border-primary" name="email" id="searchproduct-item" placeholder="Искать товар или магазин" aria-label="Искать товар или магазин" aria-describedby="searchProduct1" required>
                                 <div class="input-group-append">
                                     <!-- Select -->
                                     <select class="js-select selectpicker dropdown-select custom-search-categories-select"
                                         data-style="btn height-40 text-gray-60 font-weight-normal border-top border-bottom border-left-0 rounded-0 border-primary border-width-2 pl-0 pr-5 py-2">
                                         <option value="one" selected>Все категории</option>
-                                        <option value="two">Two</option>
-                                        <option value="three">Three</option>
-                                        <option value="four">Four</option>
+                                        {% for category in categories %}
+                                        <option value="{{ category.id }}">{{ category.title }}</option>
+                                        {% endfor %}
                                     </select>
                                     <!-- End Select -->
                                     <button class="btn btn-primary height-40 py-2 px-3 rounded-right-pill" type="button" id="searchProduct1">
