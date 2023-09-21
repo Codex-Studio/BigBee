@@ -16,8 +16,7 @@
                     <ol class="breadcrumb mb-3 flex-nowrap flex-xl-wrap overflow-auto overflow-xl-visble">
                         <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1"><a href="{% url 'index' %}">Домой</a>
                         </li>
-                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">{{
-                            category.title }}</li>
+                        <li class="breadcrumb-item flex-shrink-0 flex-xl-shrink-1 active" aria-current="page">{{ category.title }}</li>
                     </ol>
                 </nav>
             </div>
@@ -36,56 +35,29 @@
                             <a class="dropdown-toggle dropdown-toggle-collapse dropdown-title" href="javascript:;"
                                 role="button" data-toggle="collapse" aria-expanded="false"
                                 aria-controls="sidebarNav1Collapse" data-target="#sidebarNav1Collapse">
-                                Show All Categories
+                                Показать все категории
                             </a>
 
                             <div id="sidebarNav1Collapse" class="collapse" data-parent="#sidebarNav">
                                 <ul id="sidebarNav1" class="list-unstyled dropdown-list">
                                     <!-- Menu List -->
-                                    <li><a class="dropdown-item" href="shop-grid-extended.html#">Accessories<span
-                                                class="text-gray-25 font-size-12 font-weight-normal"> (56)</span></a>
+                                    {% for category in random_categories %}
+                                    <li><a class="dropdown-item" href="shop-grid-extended.html#">{{ category.title }}<span class="text-gray-25 font-size-12 font-weight-normal"> (56)</span></a>
                                     </li>
-                                    <li><a class="dropdown-item" href="shop-grid-extended.html#">Cameras &
-                                            Photography<span class="text-gray-25 font-size-12 font-weight-normal">
-                                                (11)</span></a></li>
-                                    <li><a class="dropdown-item" href="shop-grid-extended.html#">Computer
-                                            Components<span class="text-gray-25 font-size-12 font-weight-normal">
-                                                (22)</span></a></li>
-                                    <li><a class="dropdown-item" href="shop-grid-extended.html#">Gadgets<span
-                                                class="text-gray-25 font-size-12 font-weight-normal"> (5)</span></a>
-                                    </li>
-                                    <li><a class="dropdown-item" href="shop-grid-extended.html#">Home Entertainment<span
-                                                class="text-gray-25 font-size-12 font-weight-normal"> (7)</span></a>
-                                    </li>
-                                    <li><a class="dropdown-item" href="shop-grid-extended.html#">Laptops &
-                                            Computers<span class="text-gray-25 font-size-12 font-weight-normal">
-                                                (42)</span></a></li>
-                                    <li><a class="dropdown-item" href="shop-grid-extended.html#">Printers & Ink<span
-                                                class="text-gray-25 font-size-12 font-weight-normal"> (63)</span></a>
-                                    </li>
-                                    <li><a class="dropdown-item" href="shop-grid-extended.html#">Smart Phones &
-                                            Tablets<span class="text-gray-25 font-size-12 font-weight-normal">
-                                                (11)</span></a></li>
-                                    <li><a class="dropdown-item" href="shop-grid-extended.html#">TV & Audio<span
-                                                class="text-gray-25 font-size-12 font-weight-normal"> (66)</span></a>
-                                    </li>
-                                    <li><a class="dropdown-item" href="shop-grid-extended.html#">Video Games &
-                                            Consoles<span class="text-gray-25 font-size-12 font-weight-normal">
-                                                (31)</span></a></li>
+                                    {% endfor %}
                                     <!-- End Menu List -->
                                 </ul>
                             </div>
                         </li>
                         <li>
-                            <a class="dropdown-current active" href="shop-grid-extended.html#">Smart Phones & Tablets
-                                <span class="text-gray-25 font-size-12 font-weight-normal"> (50)</span></a>
+                            <a class="dropdown-current active" href="shop-grid-extended.html#">Все категории
+                                <span class="text-gray-25 font-size-12 font-weight-normal"> ({{ random_categories.all.count }})</span></a>
 
                             <ul class="list-unstyled dropdown-list">
                                 <!-- Menu List -->
-                                <li><a class="dropdown-item" href="shop-grid-extended.html#">Smartphones<span
-                                            class="text-gray-25 font-size-12 font-weight-normal"> (30)</span></a></li>
-                                <li><a class="dropdown-item" href="shop-grid-extended.html#">Tablets<span
-                                            class="text-gray-25 font-size-12 font-weight-normal"> (20)</span></a></li>
+                                {% for category in random_categories %}
+                                <li><a class="dropdown-item" href="{% url 'category_detail' category.slug %}">{{ category.title }}<span class="text-gray-25 font-size-12 font-weight-normal"> ({{ category.category_products.all.count }})</span></a></li>
+                                {% endfor %}
                                 <!-- End Menu List -->
                             </ul>
                         </li>
@@ -94,7 +66,7 @@
                 </div>
                 <div class="mb-6">
                     <div class="border-bottom border-color-1 mb-5">
-                        <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">Filters</h3>
+                        <h3 class="section-title section-title__sm mb-0 pb-2 font-size-18">Фильтры</h3>
                     </div>
                     <div class="border-bottom pb-4 mb-4">
                         <h4 class="font-size-14 mb-3 font-weight-bold">Brands</h4>
@@ -474,7 +446,7 @@
                             <select
                                 class="js-select selectpicker dropdown-select max-width-200 max-width-160-sm right-dropdown-0 px-2 px-xl-0"
                                 data-style="btn-sm bg-white font-weight-normal py-2 border text-gray-20 bg-lg-down-transparent border-lg-down-0">
-                                <option value="one" selected>Default sorting</option>
+                                <option value="one" selected>Сортировка по умолчанию</option>
                                 <option value="two">Sort by popularity</option>
                                 <option value="three">Sort by average rating</option>
                                 <option value="four">Sort by latest</option>
@@ -487,7 +459,7 @@
                             <!-- Select -->
                             <select class="js-select selectpicker dropdown-select max-width-120"
                                 data-style="btn-sm bg-white font-weight-normal py-2 border text-gray-20 bg-lg-down-transparent border-lg-down-0">
-                                <option value="one" selected>Show 20</option>
+                                <option value="one" selected>Показать 20</option>
                                 <option value="two">Show 40</option>
                                 <option value="three">Show All</option>
                             </select>
@@ -1419,7 +1391,7 @@
                 <!-- Shop Pagination -->
                 <nav class="d-md-flex justify-content-between align-items-center border-top pt-3"
                     aria-label="Page navigation example">
-                    <div class="text-center text-md-left mb-3 mb-md-0">Showing 1–25 of 56 results</div>
+                    <div class="text-center text-md-left mb-3 mb-md-0">Показано 20 из 256</div>
                     <ul class="pagination mb-0 pagination-shop justify-content-center justify-content-md-start">
                         <li class="page-item"><a class="page-link current" href="shop-grid-extended.html#">1</a></li>
                         <li class="page-item"><a class="page-link" href="shop-grid-extended.html#">2</a></li>
