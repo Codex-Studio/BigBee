@@ -8,5 +8,6 @@ from apps.products.models import Product
 def category_detail(request, slug):
     setting = Setting.objects.latest('id')
     category = Category.objects.get(slug=slug)
-    products = Product.objects.filter(category=category.id)
-    return render(request, 'categories/detail.html', locals())
+    products = Product.objects.filter(category=category.id).order_by('image')
+    random_categories = Category.objects.all().order_by('?')[:7]
+    return render(request, 'category/detail.html', locals())

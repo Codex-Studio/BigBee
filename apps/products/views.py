@@ -8,7 +8,7 @@ def product_detail(request, id):
     setting = Setting.objects.latest('id')
     product = Product.objects.get(id = id)
     related_products = Product.objects.filter(category=product.category)
-    return render(request, 'products/detail.html', locals())
+    return render(request, 'shop/product_detail.html', locals())
 
 def wishlist(request):
     setting = Setting.objects.latest('id')

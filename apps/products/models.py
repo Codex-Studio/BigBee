@@ -28,8 +28,10 @@ class Product(models.Model):
         blank=True, null=True
     )
     image = models.ImageField(
+        max_length=1000,
         upload_to='product_images/',
         verbose_name="Фотография",
+        default = "product_images/no_image.png",
         blank=True, null=True
     )
     price = models.PositiveIntegerField(
