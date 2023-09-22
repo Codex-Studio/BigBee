@@ -15,6 +15,13 @@
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
 
+        <!-- JS Global Compulsory -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="{% static 'assets/vendor/jquery/dist/jquery.min.js' %}"></script>
+        <script src="{% static 'assets/vendor/jquery-migrate/dist/jquery-migrate.min.js' %}"></script>
+        <script src="{% static 'assets/vendor/popper.js/dist/umd/popper.min.js' %}"></script>
+        <script src="{% static 'assets/vendor/bootstrap/bootstrap.min.js' %}"></script>
+
         <!-- CSS Implementing Plugins -->
         <link rel="stylesheet" href="{% static 'assets/vendor/font-awesome/css/fontawesome-all.min.css' %}">
         <link rel="stylesheet" href="{% static 'assets/css/font-electro.css">
@@ -34,12 +41,6 @@
         {% block content %}
 
         {% endblock %}
-
-        <!-- JS Global Compulsory -->
-        <script src="{% static 'assets/vendor/jquery/dist/jquery.min.js' %}"></script>
-        <script src="{% static 'assets/vendor/jquery-migrate/dist/jquery-migrate.min.js' %}"></script>
-        <script src="{% static 'assets/vendor/popper.js/dist/umd/popper.min.js' %}"></script>
-        <script src="{% static 'assets/vendor/bootstrap/bootstrap.min.js' %}"></script>
 
         <!-- JS Implementing Plugins -->
         <script src="{% static 'assets/vendor/appear.js' %}"></script>
