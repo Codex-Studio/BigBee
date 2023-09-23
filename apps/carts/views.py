@@ -9,10 +9,13 @@ from apps.billing.forms import BillingForm
 
 # Create your views here.
 def add_to_cart(request):
+    print("add to cart")
+    print(request.method)
     if request.method == 'POST':
         form = AddToCartForm(request.POST)
         if form.is_valid():
             product_id = form.cleaned_data['product_id']
+            print("WORK",product_id)
             quantity = form.cleaned_data['quantity']
             product = Product.objects.get(id=product_id)
 
