@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from django.db.models import Sum, F, ExpressionWrapper, DecimalField
+from django.db.models import Sum, F, ExpressionWrapper, DecimalField, Q
 
 from apps.settings.models import Setting
 from apps.categories.models import Category
 from apps.products.models import Product
 from apps.carts.models import Cart, CartItem
+from apps.shops.models import Shop
 
 # Create your views here.
 def index(request):
@@ -28,3 +29,20 @@ def index(request):
         cart_items = []
         total_price = 0
     return render(request, 'index.html', locals())
+
+def about(request):
+    setting = Setting.objects.latest('id')
+    return render(request, 'home/about.html', locals())
+
+def search(request):
+    setting = Setting.objects.latest('id')
+    query = request.POST.get('query', '')
+    product_results = []
+    shop_results = []
+
+    if query:
+        # Используйте Q-объекты для выполнения поиска в моделях Shop и Product
+        shop_results = Shop.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
+        product_results = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))
+
+    return render(request, 'search_results.html', locals())
