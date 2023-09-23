@@ -35,6 +35,7 @@ def about(request):
     return render(request, 'home/about.html', locals())
 
 def search(request):
+    setting = Setting.objects.latest('id')
     query = request.POST.get('query', '')
     product_results = []
     shop_results = []
@@ -44,4 +45,4 @@ def search(request):
         shop_results = Shop.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
         product_results = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))
 
-    return render(request, 'search_results.html', {'product_results': product_results, 'shop_results': shop_results, 'query': query})
+    return render(request, 'search_results.html', locals())
