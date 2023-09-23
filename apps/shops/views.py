@@ -9,4 +9,4 @@ def shop_detail(request, slug):
     setting = Setting.objects.latest('id')
     shop = Shop.objects.get(slug=slug)
     products = Product.objects.filter(shop=shop.id)
-    return render(request, 'shops/detail.html', locals())
+    return render(request, 'shop/shop_detail.html', locals())

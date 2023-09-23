@@ -93,7 +93,7 @@
                                         <span class="text-secondary font-size-13">(3 отзыва клиента)</span>
                                     </a>
                                 </div>
-                                <a href="single-product-extended.html#" class="d-inline-block max-width-150 ml-n2 mb-2"><img class="img-fluid" src="{{ product.shop.logo.url }}" alt="Image Description"></a>
+                                <a href="{% url 'shop_detail' product.shop.slug %}" class="d-inline-block max-width-150 ml-n2 mb-2"><img class="img-fluid" src="{{ product.shop.logo.url }}" alt="Image Description"></a>
                                 <div class="mb-2">
                                     <ul class="font-size-14 pl-3 ml-1 text-gray-110">
                                         <li>Описание 1</li>
