@@ -36,15 +36,12 @@ def about(request):
 
 def search(request):
     query = request.POST.get('query', '')
-    results = []
-    print(query)
+    product_results = []
+    shop_results = []
+
     if query:
         # Используйте Q-объекты для выполнения поиска в моделях Shop и Product
         shop_results = Shop.objects.filter(Q(name__icontains=query) | Q(description__icontains=query))
         product_results = Product.objects.filter(Q(title__icontains=query) | Q(description__icontains=query))
 
-        # Добавьте результаты поиска в список результатов
-        results.extend(shop_results)
-        results.extend(product_results)
-
-    return render(request, 'search_results.html', {'results': results, 'query': query})
+    return render(request, 'search_results.html', {'product_results': product_results, 'shop_results': shop_results, 'query': query})

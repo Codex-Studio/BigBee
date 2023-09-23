@@ -5,18 +5,28 @@
 </head>
 <body>
     <h1>Результаты поиска для "{{ query }}"</h1>
+
+    <h2>Товары:</h2>
     <ul>
-        {% for result in results %}
+        {% for result in product_results %}
             <li>
-                {% if result %}
-                    <a href="{% url 'shop_detail' result.slug %}">{{ result.name }}</a> (Магазин)
-                {% else %}
-                    <a href="{% url 'product_detail' result.pk %}">{{ result.name }}</a> (Товар)
-                {% endif %}
+                <a href="{% url 'product_detail' result.id %}">{{ result.title }}</a> (Товар)
             </li>
         {% empty %}
-            <p>Ничего не найдено.</p>
+            <p>Нет результатов для товаров.</p>
         {% endfor %}
     </ul>
+
+    <h2>Магазины:</h2>
+    <ul>
+        {% for result in shop_results %}
+            <li>
+                <a href="{% url 'shop_detail' result.slug %}">{{ result.name }}</a> (Магазин)
+            </li>
+        {% empty %}
+            <p>Нет результатов для магазинов.</p>
+        {% endfor %}
+    </ul>
+
 </body>
 </html>
