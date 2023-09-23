@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Результаты поиска</title>
+</head>
+<body>
+    <h1>Результаты поиска для "{{ query }}"</h1>
+    <ul>
+        {% for result in results %}
+            <li>
+                {% if result %}
+                    <a href="{% url 'shop_detail' result.slug %}">{{ result.name }}</a> (Магазин)
+                {% else %}
+                    <a href="{% url 'product_detail' result.pk %}">{{ result.name }}</a> (Товар)
+                {% endif %}
+            </li>
+        {% empty %}
+            <p>Ничего не найдено.</p>
+        {% endfor %}
+    </ul>
+</body>
+</html>

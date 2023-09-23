@@ -16,6 +16,9 @@
                             <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
                                 <a href="{% url 'index' %}" class="u-header-topbar__nav-link"><i class="ec ec-transport mr-1"></i> Отследить ваш заказ</a>
                             </li>
+                            <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border">
+                                <a href="{% url 'about' %}" class="u-header-topbar__nav-link"><i class="ec ec-compare mr-1"></i> О нас</a>
+                            </li>
                             <li class="list-inline-item mr-0 u-header-topbar__nav-item u-header-topbar__nav-item-border u-header-topbar__nav-item-no-border u-header-topbar__nav-item-border-single">
                                 <div class="d-flex align-items-center">
                                     <!-- Language -->
@@ -33,13 +36,13 @@
                                             data-unfold-animation-in="slideInUp"
                                             data-unfold-animation-out="fadeOut">
                                             <span class="d-inline-block d-sm-none">US</span>
-                                            <span class="d-none d-sm-inline-flex align-items-center"><i class="ec ec-dollar mr-1"></i> Доллар (US)</span>
+                                            <span class="d-none d-sm-inline-flex align-items-center"><i class="ec ec-dollar mr-1"></i> СОМ (KGS)</span>
                                         </a>
 
                                         <div id="languageDropdown" class="dropdown-menu dropdown-unfold" aria-labelledby="languageDropdownInvoker">
-                                            <a class="dropdown-item active" href="{% url 'index' %}">English</a>
-                                            <a class="dropdown-item" href="{% url 'index' %}">Deutsch</a>
-                                            <a class="dropdown-item" href="{% url 'index' %}">Español‎</a>
+                                            <a class="dropdown-item active" href="{% url 'index' %}">Доллар (USD)</a>
+                                            <a class="dropdown-item" href="{% url 'index' %}">Рубль (RUB)</a>
+                                            <a class="dropdown-item" href="{% url 'index' %}">Тенге (KZT)</a>
                                         </div>
                                     </div>
                                     <!-- End Language -->
@@ -193,24 +196,24 @@
                                                 <ul id="headerSidebarList" class="u-header-collapse__nav">
                                                     <!-- Value of the Day -->
                                                     <li class="">
-                                                        <a class="u-header-collapse__nav-link font-weight-bold" href="{% url 'index' %}">Value of the Day</a>
+                                                        <a class="u-header-collapse__nav-link font-weight-bold" href="{% url 'index' %}">Главная</a>
                                                     </li>
                                                     <!-- End Value of the Day -->
 
                                                     <!-- Top 100 Offers -->
                                                     <li class="">
-                                                        <a class="u-header-collapse__nav-link font-weight-bold" href="{% url 'index' %}">Top 100 Offers</a>
+                                                        <a class="u-header-collapse__nav-link font-weight-bold" href="{% url 'about' %}">О нас</a>
                                                     </li>
                                                     <!-- End Top 100 Offers -->
 
                                                     <!-- New Arrivals -->
                                                     <li class="">
-                                                        <a class="u-header-collapse__nav-link font-weight-bold" href="{% url 'index' %}">New Arrivals</a>
+                                                        <a class="u-header-collapse__nav-link font-weight-bold" href="{% url 'index' %}">Контакты</a>
                                                     </li>
                                                     <!-- End New Arrivals -->
 
                                                     <!-- Computers & Accessories -->
-                                                    <li class="u-has-submenu u-header-collapse__submenu">
+                                                    <!-- <li class="u-has-submenu u-header-collapse__submenu">
                                                         <a class="u-header-collapse__nav-link u-header-collapse__nav-pointer" href="javascript:;" data-target="#headerSidebarComputersCollapse" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="headerSidebarComputersCollapse">
                                                             Computers & Accessories
                                                         </a>
@@ -229,7 +232,7 @@
                                                                 <li><a class="u-header-collapse__submenu-nav-link" href="{% url 'index' %}">All Electronics</a></li>
                                                             </ul>
                                                         </div>
-                                                    </li>
+                                                    </li> -->
                                                     <!-- End Computers & Accessories -->
                                                 </ul>
                                                 <!-- End List -->
@@ -269,24 +272,27 @@
                     <!-- End Logo-offcanvas-menu -->
                     <!-- Search Bar -->
                     <div class="col d-none d-xl-block">
-                        <form class="js-focus-state">
+                        <form class="js-focus-state" method="post" action="{% url 'search' %}">
                             <lскabel class="sr-only" for="searchproduct">Искать</lскabel>
                             <div class="input-group">
-                                <input type="email" class="form-control py-2 pl-5 font-size-15 border-right-0 height-40 border-width-2 rounded-left-pill border-primary" name="email" id="searchproduct-item" placeholder="Искать товар или магазин" aria-label="Искать товар или магазин" aria-describedby="searchProduct1" required>
-                                <div class="input-group-append">
-                                    <!-- Select -->
-                                    <select class="js-select selectpicker dropdown-select custom-search-categories-select"
-                                        data-style="btn height-40 text-gray-60 font-weight-normal border-top border-bottom border-left-0 rounded-0 border-primary border-width-2 pl-0 pr-5 py-2">
-                                        <option value="one" selected>Все категории</option>
-                                        {% for category in categories %}
-                                        <option value="{{ category.id }}">{{ category.title }}</option>
-                                        {% endfor %}
-                                    </select>
-                                    <!-- End Select -->
-                                    <button class="btn btn-primary height-40 py-2 px-3 rounded-right-pill" type="button" id="searchProduct1">
-                                        <span class="ec ec-search font-size-24"></span>
-                                    </button>
-                                </div>
+                                
+                                    {% csrf_token %}
+                                    <input type="text" class="form-control py-2 pl-5 font-size-15 border-right-0 height-40 border-width-2 rounded-left-pill border-primary" name="query" id="searchproduct-item" placeholder="Искать товар или магазин" aria-label="Искать товар или магазин" aria-describedby="searchProduct1" required>
+                                    <div class="input-group-append">
+                                        <!-- Select -->
+                                        <select class="js-select selectpicker dropdown-select custom-search-categories-select"
+                                            data-style="btn height-40 text-gray-60 font-weight-normal border-top border-bottom border-left-0 rounded-0 border-primary border-width-2 pl-0 pr-5 py-2">
+                                            <option value="one" selected>Все категории</option>
+                                            {% for category in categories %}
+                                            <option value="{{ category.id }}">{{ category.title }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <!-- End Select -->
+                                        <button class="btn btn-primary height-40 py-2 px-3 rounded-right-pill" type="button" id="searchProduct1">
+                                            <span class="ec ec-search font-size-24"></span>
+                                        </button>
+                                    </div>
+                                
                             </div>
                         </form>
                     </div>
@@ -429,15 +435,15 @@
                                                     {% endfor %}
                                                     
                                                     <!-- Nav Item MegaMenu -->
-                                                    <li class="nav-item hs-has-mega-menu u-header__nav-item"
+                                                    <!-- <li class="nav-item hs-has-mega-menu u-header__nav-item"
                                                         data-event="hover"
                                                         data-animation-in="slideInUp"
                                                         data-animation-out="fadeOut"
                                                         data-position="left">
-                                                        <a id="basicMegaMenu" class="nav-link u-header__nav-link u-header__nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false">Computers & Accessories</a>
+                                                        <a id="basicMegaMenu" class="nav-link u-header__nav-link u-header__nav-link-toggle" href="javascript:;" aria-haspopup="true" aria-expanded="false">Computers & Accessories</a> -->
 
                                                         <!-- Nav Item - Mega Menu -->
-                                                        <div class="hs-mega-menu vmm-tfw u-header__sub-menu" aria-labelledby="basicMegaMenu">
+                                                        <!-- <div class="hs-mega-menu vmm-tfw u-header__sub-menu" aria-labelledby="basicMegaMenu">
                                                             <div class="vmm-bg">
                                                                 <img class="img-fluid" src="../../assets/img/500X400/img1.png" alt="Image Description">
                                                             </div>
@@ -467,9 +473,9 @@
                                                                     </ul>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
                                                         <!-- End Nav Item - Mega Menu -->
-                                                    </li>
+                                                    <!-- </li> -->
                                                     <!-- End Nav Item MegaMenu-->
                                                 </ul>
                                             </div>
