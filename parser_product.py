@@ -1,11 +1,11 @@
+from bs4 import BeautifulSoup
+from slugify import slugify
+from dotenv import load_dotenv
 import os
 import random
 import psycopg2
 import requests
 import random
-from bs4 import BeautifulSoup
-from slugify import slugify
-from dotenv import load_dotenv
 
 load_dotenv('.env')
 
@@ -89,7 +89,7 @@ try:
         # Вставляем информацию в базу данных
         insert_query = f"""INSERT INTO products_product (title, description, shop_id, category_id, price, image, created) 
         VALUES ('{product['title']}', '{product['title']}', {random.randint(1, 4)}, 
-        16, {product['price']}, 'product_images/{file_url}.jpeg', NOW())"""
+        14, {product['price']}, 'product_images/{file_url}.jpeg', NOW())"""
         cursor.execute(insert_query)
 
     connection.commit()
