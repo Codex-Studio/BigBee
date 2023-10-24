@@ -45,6 +45,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    #rest
+    'rest_framework',
+
     #apps
     'apps.settings',
     'apps.users',
@@ -58,6 +61,9 @@ INSTALLED_APPS = [
     #admin
     'jazzmin',
     'django.contrib.admin',
+
+    #docs
+    'drf_yasg',
 ]
 
 JAZZMIN_UI_TWEAKS = {
